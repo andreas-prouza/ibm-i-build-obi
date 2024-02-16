@@ -16,7 +16,7 @@ source-dir="src"
 
 # Build output directory
 #    Stores compile output information for each source like: joblog, spooled file
-build-output-dir="build-output"
+build-output-dir="build-output/objects"
 
 # What types of files should OBI search for?
 supported-object-types=['pgm', 'file', 'srvpgm']
