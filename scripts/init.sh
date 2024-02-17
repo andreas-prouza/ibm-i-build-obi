@@ -52,6 +52,10 @@ then
   exit -1
 fi
 
+if [ $OSTYPE == 'cygwin' ]; then
+    WORKSPACE_FOLDER=$(cygpath --windows -a "$WORKSPACE_FOLDER")
+fi
+
 exec > >(tee -a $STD_OUTPUT)
 
 if [ -z "$MODE" ] # argument has not been passed

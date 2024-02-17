@@ -9,8 +9,7 @@
         "Sync source to IBM i": "scripts/cleanup.sh   &&   scripts/sync2ibmi.sh ",
         "Sync logs back": "scripts/cleanup.sh   &&   scripts/sync_back_from_ibmi.sh ",
         "Run build": "scripts/cleanup.sh debug   &&   scripts/create_build_script.sh  &&   scripts/open_results.sh   &&   scripts/sync2ibmi.sh   &&   scripts/run_build.sh debug;   scripts/sync_back_from_ibmi.sh debug;   scripts/open_results.sh;  scripts/git-cache-meta.sh --store",
-        "Simulate build": "scripts/cleanup.sh   &&   scripts/create_build_script.sh simulate",
-        "CleanUp Build": "scripts/cleanup.sh   &&   make --makefile=make/makefile clean",
+        "CleanUp Build": "scripts/cleanup.sh  ",
         "Create build script": "scripts/cleanup.sh   &&  scripts/create_build_script.sh;  scripts/open_results.sh",
         "Reset Build Timestamp": "scripts/cleanup.sh   &&   scripts/get-prod-object-timestamp.sh",
         "Create deployment": "scripts/cleanup.sh   &&  scripts/create_deployment.sh",
@@ -29,12 +28,6 @@
                 "command": "scripts/cleanup.sh   &&   scripts/get-prod-object-timestamp.sh"
             },
             {
-                "name": "♻️ Clean builds",
-				"color": "white",
-				"useVsCodeApi": false,
-                "command": "scripts/cleanup.sh  &&   make --makefile=make/makefile clean"
-            },
-            {
                 "name": "♻️ Clean logs",
 				"color": "white",
 				"useVsCodeApi": false,
@@ -44,13 +37,13 @@
                 "name": "$(run-all) Build all",
 				"color": "white",
 				"useVsCodeApi": false,
-                "command": "scripts/cleanup.sh   &&   scripts/create_build_script.sh   &&   scripts/sync2ibmi.sh   &&   scripts/run_build.sh debug;   scripts/sync_back_from_ibmi.sh;  scripts/git-cache-meta.sh --store"
+                "command": "scripts/cleanup.sh debug   &&   scripts/create_build_script.sh  &&   scripts/open_results.sh   &&   scripts/sync2ibmi.sh   &&   scripts/run_build.sh debug;   scripts/sync_back_from_ibmi.sh debug;   scripts/open_results.sh;  scripts/git-cache-meta.sh --store"
             },
             {
                 "name": "$(telescope) Show Changes",
 				"color": "white",
 				"useVsCodeApi": false,
-                "command": "scripts/cleanup.sh   &&   scripts/create_build_script.sh show-change   &&   scripts/git-cache-meta.sh --store"
+                "command": "scripts/cleanup.sh   &&   scripts/create_build_script.sh   &&   scripts/open_results.sh"
             },
             {
                 "name": "$(pass-filled) $(rocket)  Deploy",
