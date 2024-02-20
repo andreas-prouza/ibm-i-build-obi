@@ -37,7 +37,7 @@
                 "name": "$(run-all) Build all",
 				"color": "white",
 				"useVsCodeApi": false,
-                "command": "scripts/cleanup.sh debug  &&  scripts/run_build.sh debug;   scripts/git-cache-meta.sh --store"
+                "command": "scripts/cleanup.sh debug  &&  scripts/run_build.sh;   scripts/git-cache-meta.sh --store"
             },
             {
                 "name": "$(telescope) Show Changes",

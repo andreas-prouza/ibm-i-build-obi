@@ -15,7 +15,9 @@ else
 
     # Sync to IBM i
     source $(dirname $(realpath "$0"))/sync2ibmi.sh
+
     # Create the compile list and the markdown file
+    echo "Create the compile list and the summary"
     ssh "$REMOTE_HOST" "source .profile; cd $REMOTE_WORKSPACE_FOLDER_NAME; $REMOTE_OBI_PYTHON_PATH $REMOTE_OBI_DIR/main.py -a create -p $REMOTE_WORKSPACE_FOLDER_NAME || true" >> $RUN_BUILD_LOG 2>> $ERROR_OUTPUT
     [[ -s "$ERROR_OUTPUT" ]] &&  error_handler
     # Get all back to lokal
@@ -23,17 +25,17 @@ else
 
 fi
 
-echo  "Open the markdown file"
+echo  "Open compile summary"
 $EDITOR build-output/compiled-object-list.md
 
-echo "Run ..."
+echo "Run compile commands ..."
 ssh "$REMOTE_HOST" "source .profile; cd $REMOTE_WORKSPACE_FOLDER_NAME; $REMOTE_OBI_PYTHON_PATH $REMOTE_OBI_DIR/main.py -a run -p $REMOTE_WORKSPACE_FOLDER_NAME || true" >> $RUN_BUILD_LOG 2>> $TEMP_DIR/RUN_BUILD_LOG.log
 source $(dirname $(realpath "$0"))/sync_back_from_ibmi.sh
 
-echo  "Open the markdown file"
-$EDITOR build-output/compiled-object-list.md
+# Open the markdown file
+# Should not be necessary, because of auto-refresh of the opened file
+#$EDITOR build-output/compiled-object-list.md
 
-echo "Move tmp log"
 mv $TEMP_DIR/RUN_BUILD_LOG.log $ERROR_OUTPUT
 [[ -s "$ERROR_OUTPUT" ]] &&  error_handler
 
