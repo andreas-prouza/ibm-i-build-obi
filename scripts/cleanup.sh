@@ -18,14 +18,14 @@ diff $SCRIPT_VARS $SCRIPT_VARS2 >> $STD_OUTPUT_TMP || true
 echo WORKSPACE_FOLDER $WORKSPACE_FOLDER
 
 
-mkdir -p $WORKSPACE_FOLDER/logs
+mkdir -p $WORKSPACE_FOLDER/log
 mkdir -p $WORKSPACE_FOLDER/build
 
-find $WORKSPACE_FOLDER/logs -maxdepth 2 -type f -delete
-rm -rf $WORKSPACE_FOLDER/logs/**/**/* || true 2>/dev/null
+find $WORKSPACE_FOLDER/log -maxdepth 2 -type f -delete
+rm -rf $WORKSPACE_FOLDER/log/**/**/* || true 2>/dev/null
 rm -rf $WORKSPACE_FOLDER/tmp/* || true 2>/dev/null
 
-mkdir -p $WORKSPACE_FOLDER/tmp/logs
+mkdir -p $WORKSPACE_FOLDER/tmp/log
 
 cat $STD_OUTPUT_TMP >> $STD_OUTPUT
 
