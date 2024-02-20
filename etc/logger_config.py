@@ -13,7 +13,6 @@ LOG_FORMAT = '%(asctime)s %(levelname)s: %(message)s'
 LOG_LEVEL = logging.DEBUG
 
 LOG_DIR = Path(os.path.dirname(__file__), '../log')
-print(f"{LOG_DIR=}")
 
 # None: As default the callers Script name will be used
 LOG_NAME = None

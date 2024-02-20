@@ -47,6 +47,7 @@ WORKSPACE_FOLDER="${WORKSPACE_FOLDER%"${WORKSPACE_FOLDER##*[![:space:]]}"}"
 # No need to change the workspace folder for Python.
 # This can be provided in original format
 WORKSPACE_FOLDER_PYTHON="$WORKSPACE_FOLDER"
+OBI_DIR_PYTHON=$OBI_DIR
 
 #Rsync
 WORKSPACE_FOLDER_RSYNC="$WORKSPACE_FOLDER"
@@ -62,6 +63,8 @@ fi
 if [ $OSTYPE == 'cygwin' ] || [ $OSTYPE == 'msys' ] || [ $OSTYPE == 'win32' ] || [ $OSTYPE == 'mingw' ] || [ $OSTYPE == 'mingw32' ]; then
     WORKSPACE_FOLDER_RSYNC=$(cygpath --unix -a "$WORKSPACE_FOLDER")
     WORKSPACE_FOLDER=$(cygpath --windows -a "$WORKSPACE_FOLDER")
+    WORKSPACE_FOLDER_PYTHON=$(cygpath --windows -a "$WORKSPACE_FOLDER_PYTHON")
+    OBI_DIR_PYTHON=$(cygpath --windows -a "$OBI_DIR_PYTHON")
 fi
 
 exec > >(tee -a $STD_OUTPUT)

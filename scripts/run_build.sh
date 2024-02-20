@@ -7,7 +7,7 @@ source $(dirname $(realpath "$0"))/init.sh
 if [ $USE_PYTHON == true ]; then
 
     # Create the compile list and the markdown file
-    "$OBI_PYTHON_PATH" "$OBI_DIR"/main.py -a create -p $WORKSPACE_FOLDER
+    "$OBI_PYTHON_PATH" "$OBI_DIR_PYTHON"/main.py -a create -p $WORKSPACE_FOLDER
     # Sync to IBM i
     source $(dirname $(realpath "$0"))/sync2ibmi.sh
 
