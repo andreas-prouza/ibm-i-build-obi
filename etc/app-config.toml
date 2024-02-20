@@ -1,6 +1,8 @@
 
 [general]
 
+file-system-encoding="utf-8"
+
 # List of all compiled objects and compile timestamp
 compiled-object-list="etc/object-builds.toml"
 
