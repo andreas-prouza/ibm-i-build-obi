@@ -37,7 +37,7 @@
                 "name": "$(run-all) Build all",
 				"color": "white",
 				"useVsCodeApi": false,
-                "command": "scripts/cleanup.sh debug   &&   scripts/create_build_script.sh   &&   scripts/sync2ibmi.sh   &&   scripts/run_build.sh debug;   scripts/sync_back_from_ibmi.sh debug;   scripts/open_results.sh;  scripts/git-cache-meta.sh --store"
+                "command": "scripts/cleanup.sh debug  &&  scripts/run_build.sh debug;   scripts/git-cache-meta.sh --store"
             },
             {
                 "name": "$(telescope) Show Changes",
