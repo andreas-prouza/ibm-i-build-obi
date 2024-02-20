@@ -1,1 +1,1 @@
-CONFIG_TOML = 'etc/compile-config.toml'
+CONFIG_TOML = 'etc/app-config.toml'
