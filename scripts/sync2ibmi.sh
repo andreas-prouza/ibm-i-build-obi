@@ -15,7 +15,7 @@ fi
 #rsync -adv   --exclude={'.git','.vscode','.project','.gitignore','/bin*','/boot','/dev','/home','/lib*','/media','/mnt','/opt','/proc','/temp','/root','/run','/sbin','/sys','/srv','/usr','/var','/Q*','/www'} \
 #  --delete $WORKSPACE_FOLDER/ $REMOTE_HOST:$REMOTE_WORKSPACE_FOLDER_NAME/  > $TEMP_DIR/SYNC2REMOTE_LOG.log  2> $ERROR_OUTPUT
 rsync -av --include={'log/***','build*/***','etc/***','src/***','scripts/***','tmp/***'} --exclude '*'  \
-  --delete $WORKSPACE_FOLDER/ $REMOTE_HOST:$REMOTE_WORKSPACE_FOLDER_NAME/  > $TEMP_DIR/SYNC2REMOTE_LOG.log  2>> $ERROR_OUTPUT
+  --delete $WORKSPACE_FOLDER_RSYNC/ $REMOTE_HOST:$REMOTE_WORKSPACE_FOLDER_NAME/  > $TEMP_DIR/SYNC2REMOTE_LOG.log  2>> $ERROR_OUTPUT
 [[ -s "$ERROR_OUTPUT" ]] &&  error_handler
 
 mv $TEMP_DIR/SYNC2REMOTE_LOG.log "$SYNC2REMOTE_LOG"  2>> $ERROR_OUTPUT  

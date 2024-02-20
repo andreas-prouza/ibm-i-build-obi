@@ -43,6 +43,7 @@ fi
 # Remove trim leading & trailing blanks
 WORKSPACE_FOLDER="${WORKSPACE_FOLDER#"${WORKSPACE_FOLDER%%[![:space:]]*}"}"
 WORKSPACE_FOLDER="${WORKSPACE_FOLDER%"${WORKSPACE_FOLDER##*[![:space:]]}"}"
+WORKSPACE_FOLDER_RSYNC="$WORKSPACE_FOLDER"
 
 # Check if a correct remote path is set
 if [ "$WORKSPACE_FOLDER" = "" ] || [ "$WORKSPACE_FOLDER" = "/" ] || [ "$WORKSPACE_FOLDER" = "C:\\" ] || [ "$WORKSPACE_FOLDER" == "." ] || [ "$WORKSPACE_FOLDER" == "~" ] || [ "$WORKSPACE_FOLDER" == "~/" ]
@@ -53,6 +54,7 @@ then
 fi
 
 if [ $OSTYPE == 'cygwin' ]; then
+    WORKSPACE_FOLDER_RSYNC=$(cygpath --unix -a "$WORKSPACE_FOLDER")
     WORKSPACE_FOLDER=$(cygpath --windows -a "$WORKSPACE_FOLDER")
 fi
 
