@@ -22,35 +22,35 @@
         "commands": [
             {
                 "name": "$(symbol-property) Reset all",
-                "command": "cd $(cygpath --unix -a '${workspaceFolder}'); git restore .  &&  git reset  &&  git clean -fd  &&  make/scripts/git-cache-meta.sh --apply "
+                "command": "cd $(cygpath --unix -a '${workspaceFolder}'); git restore .  &&  git reset  &&  git clean -fd  &&  scripts/git-cache-meta.sh --apply "
             },
             {
                 "name": "🪟 Builds from prod",
-                "command": "cd $(cygpath --unix -a '${workspaceFolder}'); make/scripts/cleanup.sh   &&   make/scripts/get-prod-object-timestamp.sh"
+                "command": "cd $(cygpath --unix -a '${workspaceFolder}'); scripts/cleanup.sh   &&   scripts/get-prod-object-timestamp.sh"
             },
             {
                 "name": "♻️ Clean logs",
 				"color": "white",
 				"useVsCodeApi": false,
-                "command": "cd $(cygpath --unix -a '${workspaceFolder}'); make/scripts/cleanup.sh "
+                "command": "cd $(cygpath --unix -a '${workspaceFolder}'); scripts/cleanup.sh "
             },
             {
                 "name": "$(run-all) Run build",
 				"color": "white",
 				"useVsCodeApi": false,
-                "command": "cd $(cygpath --unix -a '${workspaceFolder}'); make/scripts/cleanup.sh   &&   make/scripts/run_build.sh debug;   make/scripts/git-cache-meta.sh --store"
+                "command": "cd $(cygpath --unix -a '${workspaceFolder}'); scripts/cleanup.sh   &&   scripts/run_build.sh debug;   scripts/git-cache-meta.sh --store"
             },
             {
                 "name": "$(telescope) Show Changes",
 				"color": "white",
 				"useVsCodeApi": false,
-                "command": "cd $(cygpath --unix -a '${workspaceFolder}'); make/scripts/cleanup.sh   &&   make/scripts/create_build_script.sh "
+                "command": "cd $(cygpath --unix -a '${workspaceFolder}'); scripts/cleanup.sh   &&   scripts/create_build_script.sh "
             },
             {
                 "name": "$(pass-filled) $(rocket)  Deploy",
 				"color": "",
 				"useVsCodeApi": false,
-                "command": "cd $(cygpath --unix -a '${workspaceFolder}'); make/scripts/cleanup.sh   &&  make/scripts/create_deployment.sh"
+                "command": "cd $(cygpath --unix -a '${workspaceFolder}'); scripts/cleanup.sh   &&  scripts/create_deployment.sh"
             }
         ]
     },
