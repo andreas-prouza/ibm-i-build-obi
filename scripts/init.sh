@@ -43,6 +43,12 @@ fi
 # Remove trim leading & trailing blanks
 WORKSPACE_FOLDER="${WORKSPACE_FOLDER#"${WORKSPACE_FOLDER%%[![:space:]]*}"}"
 WORKSPACE_FOLDER="${WORKSPACE_FOLDER%"${WORKSPACE_FOLDER##*[![:space:]]}"}"
+
+# No need to change the workspace folder for Python.
+# This can be provided in original format
+WORKSPACE_FOLDER_PYTHON="$WORKSPACE_FOLDER"
+
+#Rsync
 WORKSPACE_FOLDER_RSYNC="$WORKSPACE_FOLDER"
 
 # Check if a correct remote path is set
