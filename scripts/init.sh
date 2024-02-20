@@ -53,7 +53,7 @@ then
   exit -1
 fi
 
-if [ $OSTYPE == 'cygwin' ]; then
+if [ $OSTYPE == 'cygwin' ] || [ $OSTYPE == 'msys' ] || [ $OSTYPE == 'win32' ] || [ $OSTYPE == 'mingw' ] || [ $OSTYPE == 'mingw32' ]; then
     WORKSPACE_FOLDER_RSYNC=$(cygpath --unix -a "$WORKSPACE_FOLDER")
     WORKSPACE_FOLDER=$(cygpath --windows -a "$WORKSPACE_FOLDER")
 fi
