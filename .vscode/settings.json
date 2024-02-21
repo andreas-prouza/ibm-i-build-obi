@@ -67,10 +67,11 @@
         "*.sqlproc.file": "sql"
     },
     "files.exclude": {
-        "**/.git*": false,
-        ".vscode": false,
-        "build": false,
-        "docs": false,
+        "**/.git*": true,
+        ".vscode": true,
+        "build": true,
+        "scripts": true,
+        "docs": true,
         "**/Thumbs.db": true
     }
 }
