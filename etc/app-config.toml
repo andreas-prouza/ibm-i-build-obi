@@ -47,8 +47,8 @@ ACTGRP="PROUZAGRP"
 TGTCCSID="*JOB"
 STGMDL="*SNGLVL"
 INCLUDE_BNDDIR=""
-INCDIR="'\"$HOME\"/ibm-i-build/src/prouzalib' '\"$HOME\"/ibm-i-buildsrc/prouzalib2'"
-INCDIR_DOUBLE_QUOTED="''\"$HOME\"/ibm-i-build/src/prouzalib'' ''\"$HOME\"/ibm-i-build/src/prouzalib2''"
+INCDIR_RPGLE="'\"$HOME\"/ibm-i-build/src/prouzalib' '\"$HOME\"/ibm-i-buildsrc/prouzalib2'"
+INCDIR_SQLRPGLE="''\"$HOME\"/ibm-i-build/src/prouzalib'' ''\"$HOME\"/ibm-i-build/src/prouzalib2''"
 
 # $(TARGET_LIB) or LIBNAME]
 LIBL=["$(TARGET_LIB)", "QPGL"]
@@ -141,7 +141,7 @@ srvpgm-crt=""
 "sqlrpgle.srvpgm"="""$(SET_LIBL); cl -v "\
                 CRTSQLRPGI OBJ(\"'$(TARGET_LIB)/$(OBJ_NAME)'\") SRCSTMF('\"'$(SOURCE_FILE_NAME)'\"') \
                 OBJTYPE(*MODULE) RPGPPOPT(*LVL2) TGTRLS($(TGTRLS)) DBGVIEW($(DBGVIEW)) REPLACE(*YES) \
-                COMPILEOPT('TGTCCSID($(TGTCCSID)) INCDIR($(INCDIR_DOUBLE_QUOTED))')\
+                COMPILEOPT('TGTCCSID($(TGTCCSID)) INCDIR($(INCDIR_SQLRPGLE))')\
                 "\
                 """
 
@@ -154,7 +154,7 @@ srvpgm-crt=""
 
 "rpgle.mod"="""$(SET_LIBL); cl -v "\
           CRTRPGMOD MODULE(\"'$(TARGET_LIB)/$(OBJ_NAME)'\") SRCSTMF('\"'$(SOURCE_FILE_NAME)'\"') \
-          DBGVIEW($(DBGVIEW)) REPLACE(*YES) TGTCCSID($(TGTCCSID)) INCDIR($(INCDIR))\
+          DBGVIEW($(DBGVIEW)) REPLACE(*YES) TGTCCSID($(TGTCCSID)) INCDIR($(INCDIR_RPGLE))\
           "\
           """
 
