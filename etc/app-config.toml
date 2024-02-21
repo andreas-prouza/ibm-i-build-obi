@@ -47,8 +47,8 @@ ACTGRP="PROUZAGRP"
 TGTCCSID="*JOB"
 STGMDL="*SNGLVL"
 INCLUDE_BNDDIR=""
-INCDIR_RPGLE="'\"$HOME\"/ibm-i-build/src/prouzalib' '\"$HOME\"/ibm-i-buildsrc/prouzalib2'"
-INCDIR_SQLRPGLE="''\"$HOME\"/ibm-i-build/src/prouzalib'' ''\"$HOME\"/ibm-i-build/src/prouzalib2''"
+INCDIR_RPGLE="'\"$HOME\"/ibm-i-build-obi/src/prouzalib' '\"$HOME\"/ibm-i-buildsrc-obi/prouzalib2'"
+INCDIR_SQLRPGLE="''\"$HOME\"/ibm-i-build-obi/src/prouzalib'' ''\"$HOME\"/ibm-i-build-obi/src/prouzalib2''"
 
 # $(TARGET_LIB) or LIBNAME]
 LIBL=["$(TARGET_LIB)", "QPGL"]
