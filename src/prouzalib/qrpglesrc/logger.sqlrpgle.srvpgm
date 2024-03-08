@@ -12,8 +12,6 @@ exec sql Set Option COMMIT=*none;
 // If the logger fails, then the calling program schould not interrupt
 
 
-
-
 //--------------------------------------------------------------
 // Log data to logger table
 //

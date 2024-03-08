@@ -8,6 +8,7 @@ exec sql set option commit=*none;
 
 /copy 'qcpysrc/errhdlsql'
 
+
 // ***********************************************
 // Generates date in format:
 //        {dayname}, {day}. {monthname} {year}
