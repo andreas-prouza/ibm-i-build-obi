@@ -1,5 +1,5 @@
 **free
-ctl-opt main(main) ;
+ctl-opt main(main) dftactgrp(*no);
 
 
 // ******************************************************
@@ -46,7 +46,8 @@ dcl-proc main;
     exec sql Declare c_cpy cursor for
         SELECT distinct lower(:p_lib), lower(s1.table_name), 
                 lower(s1.table_partition),
-                lower(s1.source_type), lower(replace(s2.objtype, '*', ''))
+                lower(s1.source_type), 
+                lower(replace(coalesce(s2.objtype, 'unknown'), '*', ''))
         FROM qsys2.SYSPSTAT s1
         left join table (qsys2.object_statistics('*LIBL',
               case when s1.source_type in ('RPG', 'RPGLE', 'SQLRPGLE', 'CBL', 
@@ -64,8 +65,7 @@ dcl-proc main;
              'SQLINDEX', 'CMD')
         and s1.table_partition <> ''
         and s1.table_name not like 'EVF%'
-        and s1.table_name not like 'X%'
-        and s2.objtype is not null;
+        and s1.table_name not like 'X%';
 
     writeJobLog ('Start' + log_ende);
 
