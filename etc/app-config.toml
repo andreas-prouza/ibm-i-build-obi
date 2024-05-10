@@ -92,8 +92,9 @@ DBGVIEW="*SOURCE"
 
 #========================================================================
 # Steps to get done for each source type
-#   Each step is a property in this config file
-#   So you can define your own steps by adding new properties
+#   - Each step is a property in this config file
+#   - So you can define your own steps by adding new properties
+#   - Each step and command will run in a different job/process
 #========================================================================
 
 [global.steps]
@@ -137,6 +138,19 @@ DBGVIEW="*SOURCE"
   "global.cmds.check-error"]
 
 
+"pf.file"=[
+  "global.cmds.chg-src-ccsid",
+  "global.compile-cmds.\"pf.file\"",
+  "global.cmds.check-error"]
+
+
+
+"dspf.file"=[
+  "global.cmds.chg-src-ccsid",
+  "global.compile-cmds.\"dspf.file\"",
+  "global.cmds.check-error"]
+
+
 
 #========================================================================
 # Commands used by steps
@@ -160,7 +174,6 @@ add-lible="liblist -a $(LIB) 2> /dev/null"
 
 joblog-separator="=============(!)JOBLOG(!)===================="
 dspjoblog="; echo '$(joblog-separator)'; cl -v \"DSPJOBLOG\""
-
 
 
 #========================================================================
@@ -209,3 +222,16 @@ srvpgm-crt="""$(SET_LIBL); cl -v "\
 "sqltable.file"="cl -v \"RUNSQLSTM SRCSTMF('\"'$(SOURCE_FILE_NAME)'\"') DFTRDBCOL($(TARGET_LIB)) COMMIT(*NONE) ERRLVL(21)\""
 
 "sqlproc.obj"="cl -v \"RUNSQLSTM SRCSTMF('\"'$(SOURCE_FILE_NAME)'\"') DFTRDBCOL($(TARGET_LIB)) COMMIT(*NONE) ERRLVL(21)\""
+
+"pf.file"="""\
+      cl -v "CRTSRCPF FILE(QTEMP/QSRC) RCDLEN(112)" 2> /dev/null; \
+      cl -v "CPYFRMSTMF FROMSTMF('\"'$(SOURCE_FILE_NAME)'\"') TOMBR('/QSYS.LIB/QTEMP.LIB/QSRC.FILE/\"'$(OBJ_NAME)'\".MBR') MBROPT(*replace)"; \
+      cl -v "CRTPF FILE(\"'$(TARGET_LIB)/$(OBJ_NAME)'\") SRCFILE(QTEMP/QSRC)" 2> /dev/null; \
+      cl -v "CHGPF FILE(\"'$(TARGET_LIB)/$(OBJ_NAME)'\") SRCFILE(QTEMP/QSRC)" \
+      """
+
+"dspf.file"="""\
+      cl -v "CRTSRCPF FILE(QTEMP/QSRC) RCDLEN(112)" 2> /dev/null; \
+      cl -v "CPYFRMSTMF FROMSTMF('\"'$(SOURCE_FILE_NAME)'\"') TOMBR('/QSYS.LIB/QTEMP.LIB/QSRC.FILE/\"'$(OBJ_NAME)'\".MBR') MBROPT(*replace)"; \
+      cl -v "CRTDSPF FILE(\"'$(TARGET_LIB)/$(OBJ_NAME)'\") SRCFILE(QTEMP/QSRC)" \
+      """
