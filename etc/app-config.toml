@@ -193,13 +193,6 @@ srvpgm-crt="""$(SET_LIBL); cl -v "\
       """
 
 
-"sqlrpgle.mod"="""$(SET_LIBL); cl -v "\
-                CRTSQLRPGI OBJ(\"'$(TARGET_LIB)/$(OBJ_NAME)'\") SRCSTMF('\"'$(SOURCE_FILE_NAME)'\"') \
-                OBJTYPE(*MODULE) RPGPPOPT($(RPGPPOPT)) TGTRLS($(TGTRLS)) DBGVIEW($(DBGVIEW)) REPLACE(*YES) \
-                COMPILEOPT('TGTCCSID($(TGTCCSID)) INCDIR($(INCDIR_SQLRPGLE))')\
-                "\
-                """
-
 
 "clle.pgm"="""$(SET_LIBL); cl -v "\
           CRTBNDCL PGM(\"'$(TARGET_LIB)/$(OBJ_NAME)'\")  SRCSTMF('\"'$(SOURCE_FILE_NAME)'\"') \
@@ -207,11 +200,30 @@ srvpgm-crt="""$(SET_LIBL); cl -v "\
           "\
           """
 
+"clp.pgm"="""\
+      cl -v "CRTSRCPF FILE(QTEMP/QSRC) RCDLEN(112)" 2> /dev/null; \
+      cl -v "CPYFRMSTMF FROMSTMF('\"'$(SOURCE_FILE_NAME)'\"') TOMBR('/QSYS.LIB/QTEMP.LIB/QSRC.FILE/\"'$(OBJ_NAME)'\".MBR') MBROPT(*replace)"; \
+      cl -v "CRTCLPGM PGM(\"'$(TARGET_LIB)/$(OBJ_NAME)'\") SRCFILE(QTEMP/QSRC) REPLACE(*YES)" \
+      """
+
+"rpg.pgm"="""\
+      cl -v "CRTSRCPF FILE(QTEMP/QSRC) RCDLEN(112)" 2> /dev/null; \
+      cl -v "CPYFRMSTMF FROMSTMF('\"'$(SOURCE_FILE_NAME)'\"') TOMBR('/QSYS.LIB/QTEMP.LIB/QSRC.FILE/\"'$(OBJ_NAME)'\".MBR') MBROPT(*replace)"; \
+      cl -v "CRTRPGPGM PGM(\"'$(TARGET_LIB)/$(OBJ_NAME)'\") SRCFILE(QTEMP/QSRC) REPLACE(*YES)" \
+      """
+
 "rpgle.mod"="""$(SET_LIBL); cl -v "\
           CRTRPGMOD MODULE(\"'$(TARGET_LIB)/$(OBJ_NAME)'\") SRCSTMF('\"'$(SOURCE_FILE_NAME)'\"') \
           DBGVIEW($(DBGVIEW)) REPLACE(*YES) TGTCCSID($(TGTCCSID)) INCDIR($(INCDIR_RPGLE))\
           "\
           """
+
+"sqlrpgle.mod"="""$(SET_LIBL); cl -v "\
+                CRTSQLRPGI OBJ(\"'$(TARGET_LIB)/$(OBJ_NAME)'\") SRCSTMF('\"'$(SOURCE_FILE_NAME)'\"') \
+                OBJTYPE(*MODULE) RPGPPOPT($(RPGPPOPT)) TGTRLS($(TGTRLS)) DBGVIEW($(DBGVIEW)) REPLACE(*YES) \
+                COMPILEOPT('TGTCCSID($(TGTCCSID)) INCDIR($(INCDIR_SQLRPGLE))')\
+                "\
+                """
 
 "pgm"="""$(SET_LIBL); cl -v "\
       CRTPGM PGM(\"'$(TARGET_LIB)/$(OBJ_NAME)'\") ACTGRP($(ACTGRP)) REPLACE(*YES) TGTRLS($(TGTRLS)) \
@@ -241,3 +253,5 @@ srvpgm-crt="""$(SET_LIBL); cl -v "\
       cl -v "CPYFRMSTMF FROMSTMF('\"'$(SOURCE_FILE_NAME)'\"') TOMBR('/QSYS.LIB/QTEMP.LIB/QSRC.FILE/\"'$(OBJ_NAME)'\".MBR') MBROPT(*replace)"; \
       cl -v "CRTPRTF FILE(\"'$(TARGET_LIB)/$(OBJ_NAME)'\") SRCFILE(QTEMP/QSRC) REPLACE(*YES)" \
       """
+
+
