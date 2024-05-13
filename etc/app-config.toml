@@ -118,6 +118,16 @@ DBGVIEW="*SOURCE"
   "global.compile-cmds.\"clle.pgm\"",
   "global.cmds.check-error"]
 
+"clp.pgm"=[
+  "global.cmds.chg-src-ccsid",
+  "global.compile-cmds.\"clp.pgm\"",
+  "global.cmds.check-error"]
+
+"rpg.pgm"=[
+  "global.cmds.chg-src-ccsid",
+  "global.compile-cmds.\"rpg.pgm\"",
+  "global.cmds.check-error"]
+
 "rpgle.pgm"=[
   "global.cmds.chg-src-ccsid",
   "global.compile-cmds.\"rpgle.mod\"",
