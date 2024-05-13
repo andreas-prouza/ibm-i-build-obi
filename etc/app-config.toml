@@ -235,3 +235,9 @@ srvpgm-crt="""$(SET_LIBL); cl -v "\
       cl -v "CPYFRMSTMF FROMSTMF('\"'$(SOURCE_FILE_NAME)'\"') TOMBR('/QSYS.LIB/QTEMP.LIB/QSRC.FILE/\"'$(OBJ_NAME)'\".MBR') MBROPT(*replace)"; \
       cl -v "CRTDSPF FILE(\"'$(TARGET_LIB)/$(OBJ_NAME)'\") SRCFILE(QTEMP/QSRC)" \
       """
+
+"prtf.file"="""\
+      cl -v "CRTSRCPF FILE(QTEMP/QSRC) RCDLEN(112)" 2> /dev/null; \
+      cl -v "CPYFRMSTMF FROMSTMF('\"'$(SOURCE_FILE_NAME)'\"') TOMBR('/QSYS.LIB/QTEMP.LIB/QSRC.FILE/\"'$(OBJ_NAME)'\".MBR') MBROPT(*replace)"; \
+      cl -v "CRTPRTF FILE(\"'$(TARGET_LIB)/$(OBJ_NAME)'\") SRCFILE(QTEMP/QSRC) REPLACE(*YES)" \
+      """
