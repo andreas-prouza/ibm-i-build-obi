@@ -74,3 +74,36 @@
   * This source list can be automatically generated (e.g. via SQL)
 
   ![source-list](docs/img/source-list.png)
+
+
+# FAQ
+
+## Error on build run
+
+### Problem
+
+```sh
+###################################################  
+2024-05-14 07:49:21.728 ... run_build.sh 
+################################################### 
+
+ finished sync to logsolution-test 
+Open compile summary
+Run compile commands ...
+ finished sync back logs and build files 
+ Error occured! 
+
+ bash: line 1: /usr/prouza/obi/venv/bin/python: No such file or directory 
+```
+
+### Cause
+
+You forget to run the OBI setup
+
+### Solution
+
+Run ...
+```sh
+cd /usr/prouza/obi
+./setup.sh
+```
