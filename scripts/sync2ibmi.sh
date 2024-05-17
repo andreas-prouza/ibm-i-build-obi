@@ -1,5 +1,7 @@
 #!/bin/bash 
 
+echo -e "$COLOR_CYAN_BOLD`date +"%F %T.%3N"` Sync to IBM i $COLOR_END" $1
+
 # Import global config
 source $(dirname $(realpath "$0"))/init.sh 0
 

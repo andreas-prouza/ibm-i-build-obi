@@ -10,6 +10,10 @@ source etc/global.cfg
 echo '' > $STD_OUTPUT_TMP
 
 
+echo -e "\n$COLOR_MAGENTA_BOLD###################################################  $COLOR_END"
+echo -e "$COLOR_CYAN_BOLD`date +"%F %T.%3N"` ... CleanUp $COLOR_END" $1
+echo -e "$COLOR_MAGENTA_BOLD################################################### $COLOR_END\n"
+
 # Print all script variables
 ( set -o posix ; set ) > $SCRIPT_VARS2
 diff $SCRIPT_VARS $SCRIPT_VARS2 >> $STD_OUTPUT_TMP || true
@@ -29,5 +33,3 @@ mkdir -p $WORKSPACE_FOLDER/tmp/log
 
 cat $STD_OUTPUT_TMP >> $STD_OUTPUT
 
-# Import global config
-source $(dirname $(realpath "$0"))/init.sh 0
