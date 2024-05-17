@@ -116,7 +116,7 @@
    
    * ```REMOTE_HOST```
      
-     Should be the same name, which you are using in ```~/.ssh/config``` (see [SSH key authentication](https://github.com/andreas-prouza/ibm-i-build/blob/main/docs/pages/SSH.md#ssh-key-authentication)).
+     Should be the same name, which you are using in ```~/.ssh/config``` (see [SSH user configuration](https://github.com/andreas-prouza/ibm-i-build/blob/main/docs/pages/SSH.md)).
    
    * ```REMOTE_WORKSPACE_FOLDER_NAME```
      
