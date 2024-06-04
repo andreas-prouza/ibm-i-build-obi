@@ -1,5 +1,5 @@
 **free
-ctl-opt main(main) dftactgrp(*no);
+ctl-opt main(main); // dftactgrp(*no);
 
 
 // ******************************************************
@@ -9,6 +9,7 @@ ctl-opt main(main) dftactgrp(*no);
 //  ('/home/prouza/src_neu' (*CHAR 100)))
 //
 // ******************************************************
+
 
 
 

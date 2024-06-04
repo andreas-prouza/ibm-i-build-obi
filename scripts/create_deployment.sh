@@ -2,8 +2,8 @@
 
 #set -x
 git pull
-make/scripts/get-prod-object-timestamp.sh
-make/scripts/create_build_script.sh summary
+scripts/get-prod-object-timestamp.sh
+scripts/create_build_script.sh
 git add .
 git commit -m "Deployment preperation"
 git push

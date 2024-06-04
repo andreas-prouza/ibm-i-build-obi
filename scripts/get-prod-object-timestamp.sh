@@ -7,7 +7,7 @@ source $(dirname $(realpath "$0"))/init.sh
 # git restore -s@ -SW -- build
 
 # Get version from another branch
-git checkout remotes/origin/production -- build
+git checkout remotes/origin/production -- etc/object-builds.toml
 
 
-echo -e "$COLOR_GREEN finished clean up of folder: \n`ls -d $WORKSPACE_FOLDER/build/*/` $COLOR_END"
+echo -e "$COLOR_GREEN finished clean up of: \n`ls -d $WORKSPACE_FOLDER/etc/object-builds.toml` $COLOR_END"
