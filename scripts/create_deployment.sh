@@ -12,8 +12,6 @@ git push
 # Import global config
 source $(dirname $(realpath "$0"))/init.sh
 
-exit 1
-
 
 git_checkout_release_branch () {
 
