@@ -10,6 +10,7 @@ file-system-encoding="utf-8"
 compiled-object-list="etc/object-builds.toml"
 
 dependency-list="etc/dependency.toml"
+deployment-object-list="build-output/object-list.txt"
 
 local-base-dir="."#~/projekte/opensource/ibm-i-build"
 remote-base-dir="'\"$HOME\"'/ibm-i-build-obi"
