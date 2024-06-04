@@ -24,10 +24,6 @@
                 "command": "git restore .  &&  git reset  &&  git clean -fd  &&  scripts/git-cache-meta.sh --apply "
             },
             {
-                "name": "🪟 Builds from prod",
-                "command": "scripts/cleanup.sh   &&   scripts/get-prod-object-timestamp.sh"
-            },
-            {
                 "name": "♻️ Clean logs",
 				"color": "white",
 				"useVsCodeApi": false,
@@ -35,9 +31,15 @@
             },
             {
                 "name": "$(run-all) Run build",
-				"color": "white",
+				"color": "green",
 				"useVsCodeApi": false,
                 "command": "scripts/cleanup.sh debug  &&  scripts/run_build.sh;   scripts/git-cache-meta.sh --store"
+            },
+            {
+                "name": "$(desktop-download) gen obj list",
+				"color": "white",
+				"useVsCodeApi": false,
+                "command": "scripts/cleanup.sh debug  &&  scripts/gen_object_list.sh"
             },
             {
                 "name": "$(telescope) Create build",
@@ -68,9 +70,9 @@
     },
     "files.exclude": {
         "**/.git*": true,
-        ".vscode": true,
-        "build": true,
-        "scripts": true,
+        ".vscode": false,
+        "build": false,
+        "scripts": false,
         "docs": true,
         "**/Thumbs.db": true
     }
