@@ -141,15 +141,12 @@ fi
 #-----------------------------------------
 # Create compile script
 #-----------------------------------------
-make/scripts/cleanup.sh
+scripts/cleanup.sh
 
-echo "Create object list"
-make/scripts/create_build_script.sh create-object-list
+echo "Create object and compile list"
+scripts/create_build_script.sh
 
 check_object_list
-
-echo "Create compile script"
-make/scripts/create_build_script.sh default
 
 git add -A; git commit -m "Object list & build script created"; git push --set-upstream origin $new_release
 
