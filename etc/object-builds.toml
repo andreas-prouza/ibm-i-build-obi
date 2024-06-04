@@ -48,15 +48,15 @@ hash = "6731f4da7424d979bdd117e9c5353a8550b1c3629dd24697a0a8152b94ba10a2"
 
 ["prouzalib/qrpglesrc/testmod.rpgle.srvpgm"]
 time = 2024-03-08T10:01:30.257710
-hash = "7e71fdca563dd715f3798e46997448231a16d7a64ef96edd2187fa68472c499d"
+hash = "xx"
 
 ["prouzalib/qrpglesrc/errhdlrpg.rpgle.srvpgm"]
 time = 2024-02-21T13:02:56.563261
-hash = "5813f104b9a3178545b6018ecaf19afe66a0b2402c3c759d662b3168df73432e"
+hash = "xx"
 
 ["prouzalib/qrpglesrc/cpysrc2ifs.sqlrpgle.pgm"]
 time = 2024-06-04T11:28:25.860232
-hash = "c8324bfbbb774bc48f4aaad3d53f88c45f85d050a355e89621420740371c60f6"
+hash = "xx"
 
 ["prouzalib/qrpglesrc/date.sqlrpgle.srvpgm"]
 time = 2024-03-08T09:24:33.693400
