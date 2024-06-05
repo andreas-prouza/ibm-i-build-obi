@@ -6,6 +6,8 @@ MODE=$1 # debug, ...
 
 # Import global config
 source etc/global.cfg
+# Import individual config
+source etc/.user.cfg 2> /dev/null
 
 ERROR=
 

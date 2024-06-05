@@ -25,8 +25,11 @@ else
 
 fi
 
-echo  "Open compile summary"
-$EDITOR build-output/compiled-object-list.md
+if [ $CLIENT_TYPE == 'CLIENT' ]
+then
+    echo  "Open compile summary"
+    $EDITOR build-output/compiled-object-list.md
+fi
 
 echo -e "$COLOR_CYAN_BOLD`date +"%F %T.%3N"` Run compile commands ... $COLOR_END" $1
 ssh "$REMOTE_HOST" "source .profile; cd $REMOTE_WORKSPACE_FOLDER_NAME; $REMOTE_OBI_PYTHON_PATH -X utf8 $REMOTE_OBI_DIR/main.py -a run -p $REMOTE_WORKSPACE_FOLDER_NAME || true" >> $RUN_BUILD_LOG 2>> $TEMP_DIR/RUN_BUILD_LOG.log

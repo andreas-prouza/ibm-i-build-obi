@@ -1,5 +1,11 @@
 #!/bin/bash 
 
+if [ $CLIENT_TYPE == 'SERVER' ]
+then
+  exit 0
+fi
+
+
 echo -e "$COLOR_CYAN_BOLD`date +"%F %T.%3N"` Sync back from IBM i $COLOR_END" $1
 
 # Import global config
