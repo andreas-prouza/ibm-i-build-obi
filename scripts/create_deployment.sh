@@ -94,12 +94,12 @@ url=$DEPLOYMENT_UAT_URL/api/create_deployment/$DEPLOYMENT_UAT_WORKFLOW/$current_
 echo "URL: $url" >> $STD_OUTPUT_TMP
 
 response=$(curl $url)
-echo $response
 echo $response >> $STD_OUTPUT_TMP
 
 #error=$(jq -r '.Error' <<< $response 2> $ERROR_OUTPUT)
-error=$(jq -r '.Error' <<< $response 2> $ERROR_OUTPUT)
-if [[ -s "$ERROR_OUTPUT" ]]; then
+status=$(jq -r '.status' <<< $response 2> $ERROR_OUTPUT)
+error=$(jq -r '.error' <<< $response 2> $ERROR_OUTPUT)
+if [ $status == 'error' ]; then
   echo -e "$COLOR_RED $response $COLOR_END"
   error_handler
   #echo -e "$COLOR_RED $ERROR_OUTPUT $COLOR_END"
