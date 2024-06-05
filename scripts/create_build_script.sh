@@ -17,7 +17,10 @@ else
     source $(dirname $(realpath "$0"))/sync_back_from_ibmi.sh
 fi
 
-echo  "Open compile summary"
-$EDITOR build-output/compiled-object-list.md
+if [ $CLIENT_TYPE == 'CLIENT' ]
+then
+    echo  "Open compile summary"
+    $EDITOR build-output/compiled-object-list.md
+fi
 
 echo -e "$COLOR_GREEN \n finished creation of build script $COLOR_END"
