@@ -18,6 +18,7 @@
     },
     "workbench.editor.enablePreview": true,
     "actionButtons": {
+        "defaultColor": "white",
         "commands": [
             {
                 "name": "$(symbol-property) Reset all",
@@ -25,7 +26,6 @@
             },
             {
                 "name": "♻️ Clean logs",
-				"color": "black",
 				"useVsCodeApi": false,
                 "command": "scripts/cleanup.sh "
             },
@@ -37,19 +37,16 @@
             },
             {
                 "name": "$(desktop-download) gen obj list",
-				"color": "black",
 				"useVsCodeApi": false,
                 "command": "scripts/cleanup.sh debug  &&  scripts/gen_object_list.sh"
             },
             {
                 "name": "$(telescope) Create build",
-				"color": "black",
 				"useVsCodeApi": false,
                 "command": "scripts/cleanup.sh   &&   scripts/create_build_script.sh  "
             },
             {
                 "name": "$(pass-filled) $(rocket)  Deploy",
-				"color": "black",
 				"useVsCodeApi": false,
                 "command": "scripts/cleanup.sh   &&  scripts/create_deployment.sh"
             }
