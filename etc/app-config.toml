@@ -13,7 +13,7 @@ dependency-list="etc/dependency.toml"
 deployment-object-list="build-output/object-list.txt"
 
 local-base-dir="."#~/projekte/opensource/ibm-i-build"
-remote-base-dir="'\"$HOME\"'/ibm-i-build-obi"
+remote-base-dir="'\"$HOME\"'/ibm-i-build-obi-test"
 
 # Source directory is alswas based on 
 #    * local-base-dir ... for local sources
