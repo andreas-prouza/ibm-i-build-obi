@@ -25,7 +25,7 @@
             },
             {
                 "name": "♻️ Clean logs",
-				"color": "white",
+				"color": "black",
 				"useVsCodeApi": false,
                 "command": "scripts/cleanup.sh "
             },
@@ -37,19 +37,19 @@
             },
             {
                 "name": "$(desktop-download) gen obj list",
-				"color": "white",
+				"color": "black",
 				"useVsCodeApi": false,
                 "command": "scripts/cleanup.sh debug  &&  scripts/gen_object_list.sh"
             },
             {
                 "name": "$(telescope) Create build",
-				"color": "white",
+				"color": "black",
 				"useVsCodeApi": false,
                 "command": "scripts/cleanup.sh   &&   scripts/create_build_script.sh  "
             },
             {
                 "name": "$(pass-filled) $(rocket)  Deploy",
-				"color": "",
+				"color": "black",
 				"useVsCodeApi": false,
                 "command": "scripts/cleanup.sh   &&  scripts/create_deployment.sh"
             }
