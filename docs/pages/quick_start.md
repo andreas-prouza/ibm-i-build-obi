@@ -1,5 +1,21 @@
 # Quck Start
 
+In general these are the steps to do:
+1. Copy sources to IFS 
+   * Change in RPG the /Copy- instruction to the IFS format
+2. Add the build tool to your project folder  
+   https://github.com/andreas-prouza/ibm-i-build-obi 
+3. Setup SSH on your PC  
+   https://github.com/andreas-prouza/ibm-i-build/blob/main/docs/pages/SSH.md 
+4. Install Cygwin (for Windows)
+5. Install Python (if you want full performance)
+6. Edit the config files in etc/ directory (host name, remote IFS folder, …)
+7. Create dependency list
+8.  Install OBI on your IBM i (and PC)  
+https://github.com/andreas-prouza/obi 
+1. Create git repository
+2.  Add content of your project folder into the git repository 
+
 ## Prerequesits on your IBM i
 
 * ```rsync```

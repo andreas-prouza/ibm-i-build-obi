@@ -10,4 +10,5 @@
 "prouzalib/qrpglesrc/errhdlsqlp.sqlrpgle.pgm" = ["prouzalib/qrpglesrc/logger.sqlrpgle.srvpgm"]
 "prouzalib/qrpglesrc/logger.sqlrpgle.srvpgm" = ["prouzalib/qsqlsrc/logger.sqltable.file"]
 "prouzalib/qrpglesrc/errhdlsql.sqlrpgle.srvpgm" = ["prouzalib/qrpglesrc/logger.sqlrpgle.srvpgm"]
-"prouzalib2/qrpglesrc/test3.rpgle.pgm" = ["prouzalib/qrpglesrc/logger.sqlrpgle.srvpgm"]
+"prouzalib2/qrpglesrc/test3xxx.rpgle.pgm" = ["prouzalib/qrpglesrc/hallo.rpgle.pgm"]
+"prouzalib/qrpglesrc/test4xxx.rpgle.pgm" = ["prouzalib/qrpglesrc/hallo.rpgle.pgm"]

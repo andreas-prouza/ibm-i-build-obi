@@ -6,13 +6,10 @@
 
 ## Features
 
-* Free of charge
-  
-  Except for RDi, all components used in this tool are free of charge
-
 * Check for changes
   
-  It checks all sources which have changed since last compilie
+  It checks all sources which have changed since last compilie.  
+  The hash value of the source will be used to check if it has changed.
   
 * Check for dependencies
   
@@ -22,16 +19,21 @@
 
 * Compile in correct order
   
-  tables before programs etc. based on the dependency list
+  Tables before programs etc. based on the dependency list
 
-* All actions can be done in you IDE (RDi or vscode)
-  * Using short cuts
+* All actions can be done in you IDE (RDi or vscode)  
+  * Visual Studio Code
+    * Using short cuts
 
-    ![run-command-2.jpg](docs/img/run-command-2.jpg)
+      ![run-command-2.jpg](docs/img/run-command-2.jpg)
   
-  * Or action buttons
+    * Or action buttons
 
-    ![vscode-actions.jpg](docs/img/vscode-actions.png)
+      ![vscode-actions.jpg](docs/img/vscode-actions.png)
+
+  * RDi
+
+    Using external tools
 
     ![rdi-actions.jpg](docs/img/rdi-actions.png)
 
@@ -41,7 +43,8 @@
   This significantly improves performance.<br/>
   This is particularly important if the network and/or development partition are slow.
 
-* See which objects are going to compile and their details:
+* See which objects has been compiled and their details  
+  Each task has its own:
   
   * joblog
   * spool file
@@ -50,7 +53,7 @@
   ![compile-overview](/docs/img/compile-overview.png)
 
 
-**If you also want to use git with that you will benefit of all it advantages:**
+**If you also want to use git with that you will benefit all its advantages:**
 
 * Work with branches
 * Version control
@@ -62,10 +65,13 @@
 
   ![git-compare](docs/img/git-compare.jpg)
 
-* Extended source list(s)
+* Extended source list(s)  
+  
+  Because sources are located in the IFS you may miss the source description text from PDM.
+
   * You can use a source list containing all sources and the related text description from the source files.
-  * Feel free to make your own (multiple) source lists for your projects.  
-  To get a list of all your needed sources in each list.
+  * Create multiple source lists for different projects/areas.  
+    You can also use it to filter your sources
   * Extend the list with further information like
     * Category
     * Link to wiki or ticket
@@ -98,7 +104,8 @@ Run compile commands ...
 
 ### Cause
 
-You forget to run the OBI setup
+Either OBI does not exist or you forget to run the setup  
+https://github.com/andreas-prouza/obi
 
 ### Solution
 

@@ -70,7 +70,7 @@
         ".vscode": false,
         "build": false,
         "scripts": false,
-        "docs": true,
+        "docs": false,
         "**/Thumbs.db": true
     }
 }

@@ -4,38 +4,46 @@
 
 [general]
 
-file-system-encoding="utf-8"
-
-# List of all compiled objects and compile timestamp
-compiled-object-list="etc/object-builds.toml"
-
-dependency-list="etc/dependency.toml"
-deployment-object-list="build-output/object-list.txt"
-
 local-base-dir="."#~/projekte/opensource/ibm-i-build"
 remote-base-dir="'\"$HOME\"'/ibm-i-build-obi-test"
-
-# Source directory is alswas based on 
-#    * local-base-dir ... for local sources
-#    * remote-base-dir ... for remote sources
-source-dir="src"
-
-# Build output directory
-#    Stores compile output information for each source like: joblog, spooled file
-build-output-dir="build-output/objects"
 
 # What types of files should OBI search for?
 supported-object-types=['pgm', 'file', 'srvpgm']
 
-# List of sources to get compiled
-compile-list="build-output/compile-list.json"
+file-system-encoding="utf-8"
 
 # Encoding of console output (STDOUT & STDERR)
 # https://docs.python.org/3/library/codecs.html#standard-encodings
 console-output-encoding = 'utf-8'
 
 
+#------------------------------------------
+# Constants for several files
+#------------------------------------------
+
+# Source directory is alswas based on 
+#    * local-base-dir ... for local sources
+#    * remote-base-dir ... for remote sources
+source-dir="src"
+
+# List of all compiled objects and compile timestamp
+compiled-object-list="etc/object-builds.toml"
+
+dependency-list="etc/dependency.toml"
+
+# List of sources which should be compiled
+deployment-object-list="build-output/object-list.txt"
+
+# Build output directory
+#    Stores compile output information for each source like: joblog, spooled file
+build-output-dir="build-output/objects"
+
+# List of sources to get compiled
+compile-list="build-output/compile-list.json"
+
+# Report summary
 compiled-object-list-md = "build-output/compiled-object-list.md"
+
 
 
 # Here comes globas settings
