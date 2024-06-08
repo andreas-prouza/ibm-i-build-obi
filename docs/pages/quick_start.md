@@ -9,8 +9,10 @@ In general these are the steps to do:
    https://github.com/andreas-prouza/ibm-i-build/blob/main/docs/pages/SSH.md 
 4. Install Cygwin (for Windows)
 5. Install Python (if you want full performance)
-6. Edit the config files in etc/ directory (host name, remote IFS folder, …)
-7. Create dependency list
+6. Edit the config files in etc/ directory (host name, remote IFS folder, …)  
+   See [Configuration](/docs/pages/configuration.md)
+7. Create dependency list  
+   See [etc/dependency.toml](/docs/pages/configuration.md#etcdependencytoml)
 8.  Install OBI on your IBM i (and PC)  
 https://github.com/andreas-prouza/obi 
 1. Create git repository
@@ -111,7 +113,7 @@ https://github.com/andreas-prouza/obi
 
      * Choose correct settings
        
-       * If you are using Cygwin, copy the content of ```.vscode/windows.cygwin.settings.json``` into ```.vscode/settings.json```.<br/>
+       * If you are using Windows, copy the content of ```.vscode/windows.settings.json``` into ```.vscode/settings.json```.<br/>
         It's recommended to restart vscode after this, to get all settings in action.
 
 3. Configure ```etc/global.cfg```

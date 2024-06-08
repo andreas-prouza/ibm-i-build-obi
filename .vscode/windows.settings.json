@@ -1,3 +1,70 @@
 {
-    "terminal.integrated.defaultProfile.windows": "Ubuntu (WSL)"
+    "terminal.integrated.defaultProfile.windows": "Cygwin",
+    "workbench.editorAssociations": {   
+        "*.md": "vscode.markdown.preview.editor"
+    },
+    "command-runner.terminal.name": "Sync project",
+    "command-runner.terminal.autoClear": true,
+    "command-runner.terminal.autoFocus": true,
+    "command-runner.commands": {
+        "Sync source to IBM i": "cd $(cygpath --unix -a '${workspaceFolder}');  scripts/cleanup.sh   &&   scripts/sync2ibmi.sh ",
+        "Sync logs back": "cd $(cygpath --unix -a '${workspaceFolder}');  scripts/cleanup.sh   &&   scripts/sync_back_from_ibmi.sh ",
+        "CleanUp Build": "cd $(cygpath --unix -a '${workspaceFolder}');  scripts/cleanup.sh  ",
+        "Create build": "cd $(cygpath --unix -a '${workspaceFolder}');  scripts/cleanup.sh   &&  scripts/create_build_script.sh ",
+        "Run build": "cd $(cygpath --unix -a '${workspaceFolder}');  scripts/cleanup.sh debug   &&   scripts/create_build_script.sh  &&   scripts/sync2ibmi.sh   &&   scripts/run_build.sh debug;   scripts/sync_back_from_ibmi.sh debug;   scripts/open_results.sh",
+        "Reset Build Timestamp": "cd $(cygpath --unix -a '${workspaceFolder}');  scripts/cleanup.sh   &&   scripts/get-prod-object-timestamp.sh",
+        "Create deployment": "cd $(cygpath --unix -a '${workspaceFolder}');  scripts/cleanup.sh   &&  scripts/create_deployment.sh",
+        "Merge with production": "cd $(cygpath --unix -a '${workspaceFolder}');  git pull && git -c 'core.editor=code --wait --reuse-window' merge main && git push && echo 'Done' && git rev-parse HEAD >> commit.log ",
+        "Merge cancel": "cd $(cygpath --unix -a '${workspaceFolder}');  git merge --abort"
+    },
+    "workbench.editor.enablePreview": true,
+    "actionButtons": {
+        "defaultColor": "none",
+        "commands": [
+            {
+                "name": "$(symbol-property) Reset all",
+                "command": "cd $(cygpath --unix -a '${workspaceFolder}'); git restore .  &&  git reset  &&  git clean -fd "
+            },
+            {
+                "name": "♻️ Clean logs",
+				"useVsCodeApi": false,
+                "command": "cd $(cygpath --unix -a '${workspaceFolder}'); scripts/cleanup.sh "
+            },
+            {
+                "name": "$(run-all) Run build",
+				"useVsCodeApi": false,
+                "command": "cd $(cygpath --unix -a '${workspaceFolder}'); scripts/cleanup.sh   &&   scripts/run_build.sh "
+            },
+            {
+                "name": "$(telescope) Show Changes",
+				"useVsCodeApi": false,
+                "command": "cd $(cygpath --unix -a '${workspaceFolder}'); scripts/cleanup.sh   &&   scripts/create_build_script.sh "
+            },
+            {
+                "name": "$(pass-filled) $(rocket)  Deploy",
+				"useVsCodeApi": false,
+                "command": "cd $(cygpath --unix -a '${workspaceFolder}'); scripts/cleanup.sh   &&  scripts/create_deployment.sh"
+            }
+        ]
+    },
+    "files.associations": {
+        "*.rpg.pgm": "rpg",
+        "*.rpgle.pgm": "rpgle",
+        "*.rpgle.srvpgm": "rpgle",
+        "*.sqlrpgle.pgm": "rpgle",
+        "*.sqlrpgle.srvpgm": "rpgle",
+        "*.clle.srvpgm": "cl",
+        "*.clle.pgm": "cl",
+        "*.clp.pgm": "cl",
+        "*.sqltable.file": "sql",
+        "*.sqlview.file": "sql",
+        "*.sqlproc.file": "sql"
+    },
+    "files.exclude": {
+        "**/.git*": true,
+        ".vscode": false,
+        "build": false,
+        "docs": false,
+        "**/Thumbs.db": true
+    }
 }

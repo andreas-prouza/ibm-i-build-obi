@@ -1,8 +1,10 @@
 # Object Builder for i (OBI)
 
-## [Quick Start](/docs/pages/quick_start.md)
+* [Quick Start](/docs/pages/quick_start.md)
+* [The concept](/docs/pages/concept.md)
+* [Configuration](/docs/pages/configuration.md)
 
-[Here](/docs/pages/quick_start.md) you can jump direktly to the installation instructions.
+
 
 ## Features
 
