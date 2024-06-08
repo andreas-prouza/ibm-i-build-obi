@@ -16,9 +16,15 @@ It contains global and compile settings.
 * In section ```global.settings.general```:
   * ```INCLUDE_BNDDIR```
   * ```INCDIR_RPGLE``` / ```INCDIR_SQLRPGLE```
-  * ```LIBL```
+    * For more information see ...
+       * [/COPY or /INCLUDE](https://www.ibm.com/docs/en/i/7.5?topic=directives-copy-include)
+       * [Search Path Within The IFS](https://www.ibm.com/docs/en/i/7.5?topic=files-search-path-within-ifs)
+  * ```LIBL```  
+    Used LIBL when running build commands
   * ```ACTGRP```
-  * ```TARGET_LIB_MAPPING```
+  * ```TARGET_LIB_MAPPING```  
+    Here you can make a mapping for your target lib.  
+    This is usually used if you want to compile in your development library instead of production library.
 
 
 ### Compile commands
@@ -64,7 +70,9 @@ Here the most important variables you should change:
   This is to identify if the scripts run on the IBM i server or on your local PC.  
   (E.g. it's not necessary to sync sources to the IBM i if it is already there.)
 * ```USE_PYTHON```  
-  Use OBI (for generating the compile list) either on your local PC (very fast) or on IBM i (performance hardly depends on your machine)
+  Use [OBI](https://github.com/andreas-prouza/obi) (for generating the compile list) either on your local PC (very fast) or on IBM i (performance hardly depends on your machine)
+     * ```true```: Use local OBI to generate the build script
+     * ```false```: Use IBM i to generate the build script
 * ```OBI_DIR```  
   Path to OBI on your local PC
 * ```REMOTE_HOST```  

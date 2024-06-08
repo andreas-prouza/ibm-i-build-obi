@@ -47,7 +47,8 @@ https://github.com/andreas-prouza/obi
 
 * GIT
   
-  distributed version control system 
+  Distributed version control system  
+  Not necessary, but recommended
 
 * [SSH key authentication](https://github.com/andreas-prouza/ibm-i-build/blob/main/docs/pages/SSH.md)
 
@@ -116,80 +117,9 @@ https://github.com/andreas-prouza/obi
        * If you are using Windows, copy the content of ```.vscode/windows.settings.json``` into ```.vscode/settings.json```.<br/>
         It's recommended to restart vscode after this, to get all settings in action.
 
-3. Configure ```etc/global.cfg```
-   
-   This config contains global system settings which are used for the shell scripts.
-   <br/>
-   Important settings to check:
-   
-   * ```USE_PYTHON``` 
-     * ```true```: Use local OBI to generate the build script
-     * ```false``` (default): Use IBM i to generate the build script
-   
-   * ```OBI_DIR```
-      
-      If ```USE_PYTHON``` is ```true```, set the path to your local OBI directory. <br/>
-      You can use the ```$WORKSPACE_FOLDER``` variable, if the path in relative to your project location.<br\>
-      E.g.: (default) ```OBI_DIR=$WORKSPACE_FOLDER/../obi```
-   
-   * ```REMOTE_HOST```
-     
-     Should be the same name, which you are using in ```~/.ssh/config``` (see [SSH user configuration](https://github.com/andreas-prouza/ibm-i-build/blob/main/docs/pages/SSH.md)).
-   
-   * ```REMOTE_WORKSPACE_FOLDER_NAME```
-     
-     Project location on your IBM i for source synchronization.<br/>
-     E.g. (default) ```REMOTE_WORKSPACE_FOLDER_NAME="~/$WORKSPACE_FOLDER_NAME"```
-   
-   * ```REMOTE_OBI_DIR```
-     
-     IFS location of OBI on your IBM i
-  
-4. Configure ```etc/app-config.toml```
-
-   This config is used by OBI.
-   <br/>
-   It contains settings to generate the build list/commands and the execution of the build
-
-   * In section ```[general]```:
-
-     * ```file-system-encoding```
-       
-       Default: ```utf-8```
-       <br/>
-       On windows you may need to use ```cp1252``` if special characters in file name are not correct shown.
-       <br/>
-       (Specially for characters like the paragraph: ```§```)
-
-     * ```remote-base-dir```
-       
-       Again the remote directory. This one is used by OBI to generate the correct build command for the IBM i.
-
-   * In section ```[global.settings.general]```:
-
-     There you can change some default compile parameters (like ACTGRP, TGTRLS, DBGVIEW, ...)
-
-     * ```INCDIR_SQLRPGLE``` and ```INCDIR_RPGLE```
-       
-       Path list to search for ```/copy``` or ```/include``` directives in RPG sources.
-
-       It's necessary to adapt these settings, if you want to add sources of other libraries.
-       
-       ```INCDIR_SQLRPGLE``` is used for SQLRPGLE sources
-       <br/>
-       ```INCDIR_RPGLE``` is used for PGLE sources
-
-       For more information see ...
-       * [/COPY or /INCLUDE](https://www.ibm.com/docs/en/i/7.5?topic=directives-copy-include)
-       * [Search Path Within The IFS](https://www.ibm.com/docs/en/i/7.5?topic=files-search-path-within-ifs)
-
-     * ```TARGET_LIB_MAPPING```
-
-       Here you can make a mapping for your target lib.
-       <br/>
-       This is usually used if you want to compile in your development library instead of production library.
-
-5. Make a test
+3. Configure [etc/global.cfg](/docs/pages/configuration.md#etcglobalcfg)
+4. Configure [etc/app-config.toml](/docs/pages/configuration.md#etcapp-configtoml)
+5. Perform a test
    
    ![show-changes](/docs/img/vscode-show-changes.png)
 
