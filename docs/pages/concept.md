@@ -73,3 +73,15 @@ It also provides necessary configurations to OBI for building process.
    Every developer should have his own build directory (usually somewhere in ```/home/$USER```)
 4. [OBI](https://github.com/andreas-prouza/obi) runs the generated build from ```build-output/compile-list.json```
 5. At the end [IBM i Build with OBI](https://github.com/andreas-prouza/ibm-i-build-obi) gets all logs and the report summary
+
+
+## Compile settings ([etc/app-config.toml](/docs/pages/configuration.md#etcapp-configtoml))
+
+You can define settings and compile command ...
+
+* Global
+  * For each source type
+* Individual
+  * For each source
+
+![source-list](/docs/img/compile-settings.png)
