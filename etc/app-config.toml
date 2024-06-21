@@ -199,6 +199,11 @@ dspjoblog="; echo '$(joblog-separator)'; cl -v \"DSPJOBLOG\""
 # Compile commands for each source type
 #========================================================================
 
+#------
+# Use env-var QIBM_RPG_PPSRCFILE_LENGTH or compile parameter PPMINOUTLN to define larger record length for QTEMP/QSQLPRE
+# Requirements: IBM i 7.5 TR2, IBM i 7.4 TR8
+#------
+
 [global.compile-cmds]
 
 bnddir-rmv="""$(SET_LIBL); cl -v "RMVBNDDIRE BNDDIR($(INCLUDE_BNDDIR)) OBJ(\"'*LIBL/$(OBJ_NAME)'\")" """
