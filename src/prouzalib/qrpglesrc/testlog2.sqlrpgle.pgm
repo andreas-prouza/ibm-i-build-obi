@@ -3,10 +3,19 @@
 /include 'qcpysrc/logger'
 /include 'qcpysrc/testmod'
 
-/include 'qcpysrc/errhdlsql'
 
 
 dcl-s l_count   int(10);
+
+  dcl-ds test_ds            extname('TEST') qualified;
+  END-DS;
+  
+/copy 'qcpysrc/errhdlsql'
+
+  test_ds.text = 'Test';
+  test_ds.chgtime = %timestamp();
+
+  exec sql insert into test (text, chgtime) values(:test_ds.text, :test_ds.chgtime);
 
 
 // Just to test a procedure call is possible

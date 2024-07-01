@@ -8,4 +8,4 @@ steps=[
   "global.cmds.chg-src-ccsid",
   "global.cmds.test-cmd"
   ]
-settings= { "ACTGRP"= "TESTACT", "TARGET_LIB" = 'TESTLIB' }
+settings= { "ACTGRP"= "TESTACT", "TARGET_LIB" = 'PROUZAT1' }

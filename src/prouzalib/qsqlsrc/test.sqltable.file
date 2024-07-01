@@ -1,0 +1,9 @@
+
+
+Create or replace table test (
+  id        bigint generated always as identity (cycle),
+  text      varchar(1000),
+  chgtime   timestamp,
+  primary key (id)
+);
+

@@ -62,9 +62,10 @@
     },
     "files.exclude": {
         "**/.git*": true,
+        "**/__pycache__": true,
         ".vscode": false,
-        "build": false,
-        "scripts": false,
+        "build": true,
+        "scripts": true,
         "docs": false,
         "**/Thumbs.db": true
     }
