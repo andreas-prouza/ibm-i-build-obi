@@ -91,10 +91,10 @@ git pull
 echo -e "$COLOR_GREEN current_commit: $current_commit $COLOR_END"
 
 url=$DEPLOYMENT_UAT_URL/api/create_deployment/$DEPLOYMENT_UAT_WORKFLOW/$current_commit?auth-token=$DEPLOYMENT_AUTH_TOKEN
-echo "URL: $url" >> $STD_OUTPUT_TMP
+echo "URL: $url" >> $STD_OUTPUT
 
 response=$(curl $url)
-echo $response >> $STD_OUTPUT_TMP
+echo $response >> $STD_OUTPUT
 
 #error=$(jq -r '.Error' <<< $response 2> $ERROR_OUTPUT)
 status=$(jq -r '.status' <<< $response 2> $ERROR_OUTPUT)
