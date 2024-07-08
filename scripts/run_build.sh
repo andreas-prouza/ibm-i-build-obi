@@ -4,7 +4,7 @@
 source $(dirname $(realpath "$0"))/init.sh
 
 
-if [ $USE_PYTHON == true ]; then
+if [ $USE_PYTHON == true ] || [ $CLIENT_TYPE == 'SERVER' ]; then
 
     echo -e "$COLOR_CYAN_BOLD`date +"%F %T.%3N"` Create the compile list and the markdown file $COLOR_END" $1
     "$OBI_PYTHON_PATH" -X utf8 "$OBI_DIR_PYTHON"/main.py -a create -p $WORKSPACE_FOLDER
@@ -27,20 +27,27 @@ fi
 
 if [ $CLIENT_TYPE == 'CLIENT' ]
 then
+
     echo  "Open compile summary"
     $EDITOR build-output/compiled-object-list.md
-fi
 
-echo -e "$COLOR_CYAN_BOLD`date +"%F %T.%3N"` Run compile commands ... $COLOR_END" $1
-ssh "$REMOTE_HOST" "source .profile; cd $REMOTE_WORKSPACE_FOLDER_NAME; $REMOTE_OBI_PYTHON_PATH -X utf8 $REMOTE_OBI_DIR/main.py -a run -p $REMOTE_WORKSPACE_FOLDER_NAME || true" >> $RUN_BUILD_LOG 2>> $TEMP_DIR/RUN_BUILD_LOG.log
-source $(dirname $(realpath "$0"))/sync_back_from_ibmi.sh
+    echo -e "$COLOR_CYAN_BOLD`date +"%F %T.%3N"` Run compile commands ... $COLOR_END" $1
+    ssh "$REMOTE_HOST" "source .profile; cd $REMOTE_WORKSPACE_FOLDER_NAME; $REMOTE_OBI_PYTHON_PATH -X utf8 $REMOTE_OBI_DIR/main.py -a run -p $REMOTE_WORKSPACE_FOLDER_NAME || true" >> $RUN_BUILD_LOG 2>> $TEMP_DIR/RUN_BUILD_LOG.log
+    source $(dirname $(realpath "$0"))/sync_back_from_ibmi.sh
+
+    mv $TEMP_DIR/RUN_BUILD_LOG.log $ERROR_OUTPUT
+    [[ -s "$ERROR_OUTPUT" ]] &&  error_handler
+
+else
+
+    echo -e "$COLOR_CYAN_BOLD`date +"%F %T.%3N"` Run compile commands ... $COLOR_END" $1
+    "$OBI_PYTHON_PATH" -X utf8 "$OBI_DIR_PYTHON"/main.py -a run -p $WORKSPACE_FOLDER
+
+fi
 
 # Open the markdown file
 # Should not be necessary, because of auto-refresh of the opened file
 #$EDITOR build-output/compiled-object-list.md
-
-mv $TEMP_DIR/RUN_BUILD_LOG.log $ERROR_OUTPUT
-[[ -s "$ERROR_OUTPUT" ]] &&  error_handler
 
 
 echo -e "$COLOR_GREEN`date +"%F %T.%3N"`  finished build $COLOR_END"
