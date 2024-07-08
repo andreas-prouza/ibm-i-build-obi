@@ -1,9 +1,5 @@
 #!/bin/bash 
 
-if [ $CLIENT_TYPE == 'CLIENT' ]
-then
-  sync_2_ibmi
-fi
 
 sync_2_ibmi() { 
 
@@ -39,3 +35,9 @@ sync_2_ibmi() {
   echo -e "$COLOR_GREEN finished sync to $REMOTE_HOST $COLOR_END"
 
 }
+
+
+if [ $CLIENT_TYPE == 'CLIENT' ]
+then
+  sync_2_ibmi
+fi
