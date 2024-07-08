@@ -1,10 +1,11 @@
 #!/bin/bash 
 
-if [ $CLIENT_TYPE == 'SERVER' ]
+if [ $CLIENT_TYPE == 'CLIENT' ]
 then
-  exit 0
+  sync_back_from_ibmi
 fi
 
+sync_back_from_ibmi(){
 
 echo -e "$COLOR_CYAN_BOLD`date +"%F %T.%3N"` Sync back from IBM i $COLOR_END" $1
 
@@ -26,3 +27,5 @@ then
 fi
 
 echo -e "$COLOR_GREEN finished sync back logs and build files $COLOR_END"
+
+}
