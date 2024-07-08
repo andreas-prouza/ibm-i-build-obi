@@ -10,6 +10,7 @@
         "Sync logs back": "scripts/cleanup.sh   &&   scripts/sync_back_from_ibmi.sh ",
         "CleanUp Build": "scripts/cleanup.sh  ",
         "Create build": "scripts/cleanup.sh   &&  scripts/create_build_script.sh ",
+        "Generate object list": "scripts/cleanup.sh   &&  scripts/gen_object_list.sh ",
         "Run build": "scripts/cleanup.sh debug   &&   scripts/create_build_script.sh  &&   scripts/sync2ibmi.sh   &&   scripts/run_build.sh debug;   scripts/sync_back_from_ibmi.sh debug;   scripts/open_results.sh",
         "Reset Build Timestamp": "scripts/cleanup.sh   &&   scripts/get-prod-object-timestamp.sh",
         "Create deployment": "scripts/cleanup.sh   &&  scripts/create_deployment.sh",
