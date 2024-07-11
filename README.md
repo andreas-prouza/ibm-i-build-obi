@@ -1,4 +1,4 @@
-# Object Builder for i (OBI)
+# ![logo](docs/img/Open%20Source%20Logo%20smaller.png) Object Builder for i (OBI)
 
 * [Quick Start](/docs/pages/quick_start.md)
 * [The concept](/docs/pages/concept.md)
