@@ -10,6 +10,6 @@ ctl-opt nomain;
 
 dcl-proc testmod export;
 
-    loginfo('This procedure was called': 'LOG_TEST_CASE_3');
+    loginfo('This procedure was called': 'LOG_TEST_CASE_4');
 
 END-PROC;

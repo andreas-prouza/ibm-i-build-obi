@@ -3,3 +3,5 @@
 # To get it in action rename this file to: .user.cfg
 #
 # It will be ignored by git
+
+CLIENT_TYPE=CLIENT

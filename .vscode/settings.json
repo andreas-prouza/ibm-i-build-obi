@@ -65,7 +65,6 @@
         "**/.git*": true,
         "**/__pycache__": true,
         ".vscode": false,
-        "build": true,
         "scripts": false,
         "docs": false,
         "**/Thumbs.db": true

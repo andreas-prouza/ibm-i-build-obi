@@ -23,7 +23,7 @@ echo WORKSPACE_FOLDER $WORKSPACE_FOLDER
 
 
 mkdir -p $WORKSPACE_FOLDER/log
-mkdir -p $WORKSPACE_FOLDER/build
+mkdir -p $WORKSPACE_FOLDER/build-output
 
 find $WORKSPACE_FOLDER/log -maxdepth 2 -type f -delete
 rm -rf $WORKSPACE_FOLDER/log/**/**/* || true 2>/dev/null
