@@ -1,0 +1,6 @@
+**free
+
+exec sql select * from logger;
+dsply 'test1';
+
+return;
