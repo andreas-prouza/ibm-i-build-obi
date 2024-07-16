@@ -1,6 +1,6 @@
 **free
 
 exec sql select * from logger;
-dsply 'test1';
+dsply 'test2';
 
 return;
