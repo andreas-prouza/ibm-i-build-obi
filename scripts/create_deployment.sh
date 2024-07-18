@@ -2,29 +2,36 @@
 
 #set -x
 git pull
-scripts/get-prod-object-timestamp.sh
-scripts/create_build_script.sh
-git add .
-git commit -m "Deployment preperation"
-git push
 
 
-# Import global config
-source $(dirname $(realpath "$0"))/init.sh
+check_untracked_files () {
 
+  changed_files=$(git status -u --porcelain)
+
+  if [ "$changed_files" != '' ]; then
+    echo -e "$COLOR_RED There are untracked changes. Please save (commit) them first! $COLOR_END\n"
+    echo -e "$COLOR_YELLOW$changed_files $COLOR_END"
+    exit 1
+  fi
+
+}
 
 git_checkout_release_branch () {
 
-  branch=$(git rev-parse --verify $1)
-  if [ "$branch" != '' ]; then
-    git checkout $1
-    git pull
-    exit 0
+  git show-ref --quiet refs/heads/$1
+
+  if [ $? -gt 1 ]; then
+    echo -e "$COLOR_RED Error $? when verify branch $1 $COLOR_END\n"
+    exit $?
+  fi
+  if [ $? == 1 ]; then
+    echo -e "$COLOR_RED Branch $1 does already exist $COLOR_END\n"
+    exit $?
   fi
 
   echo "Create new branch $1 with commit $2"
   git checkout -b $1 $2
-  #git push --set-upstream origin $1
+  git push --set-upstream origin $1
 
 }
 
@@ -32,21 +39,17 @@ git_checkout_release_branch () {
 check_object_list () {
 
   if [ ! -s "${COMPILE_OBJECT_LIST}" ]; then
-    git reset --hard HEAD
-    git clean -fd
-    git checkout $current_branch
-    git stash pop
-    git branch --delete  $new_release
-    #git push -d origin $new_release
-    response=$(curl -X POST \
-          $DEPLOYMENT_UAT_URL/api/cancel_deployment?auth-token=$DEPLOYMENT_AUTH_TOKEN \
-          -H 'Content-Type: application/json' \
-          -d '{"filename": "'$file_name'"}')
     echo -e "\n\n$COLOR_RED No objects available to compile $COLOR_END\n"
     exit 1
   fi
 
 }
+
+# Import global config
+source $(dirname $(realpath "$0"))/init.sh
+
+
+check_untracked_files
 
 
 
@@ -58,7 +61,7 @@ current_branch=`git rev-parse --abbrev-ref HEAD`
 current_commit=`git rev-parse HEAD`
 
 # Index all untracked files (so they become visible in "git diff")
-git add -N -A
+#git add -N -A
 
 #changed_files=$(git diff --name-status)
 
@@ -76,7 +79,7 @@ git add -N -A
 #git stash clear
 #git stash --include-untracked
 
-git pull
+#git pull
 
 # Get version from another branch
 #git checkout remotes/origin/production -- build
@@ -84,6 +87,21 @@ git pull
 git checkout $DEPLOYMENT_UAT_MAIN_BRANCH
 
 git pull
+
+
+
+#-----------------------------------------
+# Create compile script
+#-----------------------------------------
+scripts/cleanup.sh
+source $(dirname $(realpath "$0"))/get-prod-object-timestamp.sh
+
+echo "Exit: $?"
+echo "Create object and compile list"
+scripts/create_build_script.sh
+
+check_object_list
+
 
 #-----------------------------------------
 # First create a new deployment
@@ -141,17 +159,8 @@ if [ "$new_release_commit" != "$current_commit" ]; then
   exit 1
 fi
 
-#-----------------------------------------
-# Create compile script
-#-----------------------------------------
-scripts/cleanup.sh
 
-echo "Create object and compile list"
-scripts/create_build_script.sh
-
-check_object_list
-
-git add -A; git commit -m "Object list & build script created"; git push --set-upstream origin $new_release
+# git add -A; git commit -m "Object list & build script created"; git push --set-upstream origin $new_release
 
 
 #-----------------------------------------
