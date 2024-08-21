@@ -86,13 +86,13 @@ TARGET_LIB_MAPPING={ "prouzalib"= "prouzat1", "prouzalib2"= "prouzat2" }
 #   for source extension
 #========================================================================
 
-[global.settings."sqlrpgle.srvpgm"]
+[global.settings.language."sqlrpgle.srvpgm"]
 
 RPGPPOPT="*LVL2"
 DBGVIEW="*SOURCE"
 
 
-[global.settings."sqlrpgle.pgm"]
+[global.settings.language."sqlrpgle.pgm"]
 
 RPGPPOPT="*LVL2"
 DBGVIEW="*SOURCE"
