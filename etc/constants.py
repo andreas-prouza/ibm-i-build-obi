@@ -1,4 +1,5 @@
 CONFIG_TOML = 'etc/app-config.toml'
+CONFIG_USER_TOML = 'etc/.user-app-config.toml'
 SOURCE_CONFIG_TOML = 'etc/source-config.toml'
 DEPENDEND_OBJECT_LIST = 'tmp/dependend-object-list.json'
 CHANGED_OBJECT_LIST = 'tmp/changed-object-list.json'
