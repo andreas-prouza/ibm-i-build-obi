@@ -1,5 +1,5 @@
 **free
-ctl-opt main(main); // dftactgrp(*no);
+ctl-opt main(main) dftactgrp(*no);
 
 
 // ******************************************************
@@ -33,24 +33,26 @@ dcl-proc main;
         p_root_dir                char(100) const;
     end-pi;
 
-    dcl-s l_lib varchar(10);
-    dcl-s l_file varchar(10);
-    dcl-s l_file_tmp varchar(10);
-    dcl-s l_mbr varchar(10);
-    dcl-s l_ext varchar(10);
-    dcl-s l_objtype varchar(10);
+    dcl-s l_lib                   varchar(10);
+    dcl-s l_file                  varchar(10);
+    dcl-s l_file_tmp              varchar(10);
+    dcl-s l_mbr                   varchar(10);
+    dcl-s l_ext                   varchar(10);
+    dcl-s l_objtype               varchar(10);
 
-    dcl-s l_cmd      varchar(500);
-    dcl-s l_root_dir varchar(100);
-    dcl-s l_cur_dir      varchar(100);
+    dcl-s l_cmd                   varchar(500);
+    dcl-s l_root_dir              varchar(1000);
+    dcl-s l_cur_dir               varchar(1000);
+    dcl-s l_stmf                  varchar(1000);
 
     exec sql Declare c_cpy cursor for
-        SELECT distinct lower(:p_lib), lower(s1.table_name), 
-                lower(s1.table_partition),
-                lower(s1.source_type), 
-                lower(replace(coalesce(s2.objtype, 'unknown'), '*', ''))
+        SELECT distinct lower(coalesce(s2.objlib, :p_lib)) obj_lib, 
+                lower(s1.table_name) srcpf, 
+                lower(s1.table_partition) mbr,
+                lower(s1.source_type) source_type, 
+                lower(replace(coalesce(s2.objtype, ''), '*', '')) obj_type
         FROM qsys2.SYSPSTAT s1
-        left join table (qsys2.object_statistics('*LIBL',
+        left join table (qsys2.object_statistics('*USRLIBL',
               case when s1.source_type in ('RPG', 'RPGLE', 'SQLRPGLE', 'CBL', 
                               'CBLLE', 'CL', 'CLP', 'CLLE') then '*SRVPGM *PGM'
                    when s1.source_type in ('PF', 'LF', 'DSPF', 'PRTF', 
@@ -60,6 +62,13 @@ dcl-proc main;
               end,
               s1.table_partition )) s2
           on s2.objname = s1.table_partition
+          AND s2.objtype = case when s1.source_type in ('RPG', 'RPGLE', 'SQLRPGLE', 'CBL', 
+                              'CBLLE', 'CL', 'CLP', 'CLLE') then '*SRVPGM *PGM'
+                   when s1.source_type in ('PF', 'LF', 'DSPF', 'PRTF', 
+                              'SQLVIEW', 'SQLTABLE', 'SQLINDEX') then '*FILE'
+                   when s1.source_type in ('CMD') then '*CMD'
+                   else '*ALL'
+            end 
         WHERE s1.table_schema = :p_lib
         AND s1.source_type IN ('RPG', 'RPGLE', 'SQLRPGLE', 'CBL', 'CBLLE', 'CL',
              'CLP', 'CLLE', 'PF', 'LF', 'DSPF', 'PRTF', 'SQLVIEW', 'SQLTABLE',
@@ -76,14 +85,14 @@ dcl-proc main;
 
     l_root_dir= %trim(p_root_dir) + '/' + 
                 %char(%timestamp(*SYS : 0) : *ISO) + '/' + 
-                %trim(p_lib);
+                %trim(l_lib);
 
     // Create directory and all it's parent folders if not exist
     l_cmd = 'QSH cmd(''mkdir -p ' + l_root_dir + ''')';
     writeJobLog (l_cmd + log_ende);
     system(l_cmd);
 
-      dow sqlcode = 0;
+    dow sqlcode = 0;
 
       if (l_file <> l_file_tmp);
           l_file_tmp = l_file;
@@ -96,11 +105,15 @@ dcl-proc main;
           system(l_cmd);
       ENDIF;
 
+      l_stmf = l_cur_dir + '/' + l_mbr + '.' + l_ext;
+      if l_objtype <> *blank;
+        l_stmf += '.' + l_objtype;
+      endif;
+
       l_cmd = 'CPYTOSTMF FROMMBR(''/QSYS.LIB/' + %trim(p_lib) + '.LIB/' + 
                       l_file + '.FILE/' +
                       l_mbr + '.MBR'') STMFCCSID(1208) +
-                  TOSTMF(''' + l_cur_dir + '/' + l_mbr + '.' + l_ext + '.' + 
-                        l_objtype + ''')';
+                  TOSTMF(''' + l_stmf + ''')';
       clear ErrMsg;
       system (l_cmd);
 
