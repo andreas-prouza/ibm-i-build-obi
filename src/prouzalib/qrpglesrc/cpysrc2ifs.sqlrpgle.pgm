@@ -8,6 +8,9 @@ ctl-opt main(main) dftactgrp(*no);
 //  ===> CALL PGM(CPYSRC2IFS) PARM(('MYSRCLIB' (*CHAR 10)) 
 //  ('/home/prouza/src_neu' (*CHAR 100)))
 //
+//  ===> SBMJOB CMD(CALL PGM(PROUZALIB/CPYSRC2IFS) PARM(('MYSRCLIB' (*CHAR 10))
+//   ('/home/prouza/src_neu' (*CHAR 100)))) JOB(CPY2IFS) JOBQ(QS36EVOKE)
+//
 // ******************************************************
 
 
@@ -34,6 +37,7 @@ dcl-proc main;
     end-pi;
 
     dcl-s l_lib                   varchar(10);
+    dcl-s l_lib_tmp               varchar(10);
     dcl-s l_file                  varchar(10);
     dcl-s l_file_tmp              varchar(10);
     dcl-s l_mbr                   varchar(10);
@@ -75,7 +79,9 @@ dcl-proc main;
              'SQLINDEX', 'CMD')
         and s1.table_partition <> ''
         and s1.table_name not like 'EVF%'
-        and s1.table_name not like 'X%';
+        and s1.table_name not like 'X%'
+        and s2.objlib not like 'Q%'
+        order by 1, 2;
 
     writeJobLog ('Start' + log_ende);
 
@@ -84,8 +90,7 @@ dcl-proc main;
     exec sql fetch c_cpy into :l_lib, :l_file, :l_mbr, :l_ext, :l_objtype;
 
     l_root_dir= %trim(p_root_dir) + '/' + 
-                %char(%timestamp(*SYS : 0) : *ISO) + '/' + 
-                %trim(l_lib);
+                %char(%timestamp(*SYS : 0) : *ISO);
 
     // Create directory and all it's parent folders if not exist
     l_cmd = 'QSH cmd(''mkdir -p ' + l_root_dir + ''')';
@@ -94,10 +99,11 @@ dcl-proc main;
 
     dow sqlcode = 0;
 
-      if (l_file <> l_file_tmp);
+      if (l_file <> l_file_tmp or l_lib <> l_lib_tmp);
           l_file_tmp = l_file;
-          l_cur_dir = l_root_dir + '/' + l_file;
-          l_cmd = 'mkdir ''' + l_cur_dir + '''';
+          l_lib_tmp = l_lib;
+          l_cur_dir = l_root_dir + '/' + %trim(l_lib) + '/' + %trim(l_file);
+          l_cmd = 'QSH cmd(''mkdir -p ' + l_cur_dir + ''')';
           writeJobLog (l_cmd + log_ende);
           system(l_cmd);
           l_cmd = 'CHGATR OBJ(''' + l_cur_dir + ''') ATR(*CCSID) VALUE(1208)';
