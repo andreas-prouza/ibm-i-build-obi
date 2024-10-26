@@ -66,13 +66,22 @@ dcl-proc main;
               end,
               s1.table_partition )) s2
           on s2.objname = s1.table_partition
-          AND s2.objtype = case when s1.source_type in ('RPG', 'RPGLE', 'SQLRPGLE', 'CBL', 
-                              'CBLLE', 'CL', 'CLP', 'CLLE') then '*SRVPGM *PGM'
-                   when s1.source_type in ('PF', 'LF', 'DSPF', 'PRTF', 
-                              'SQLVIEW', 'SQLTABLE', 'SQLINDEX') then '*FILE'
-                   when s1.source_type in ('CMD') then '*CMD'
-                   else '*ALL'
-            end 
+          AND
+          (
+            (s1.source_type in ('RPG', 'RPGLE', 'SQLRPGLE', 'CBL', 
+                                  'CBLLE', 'CL', 'CLP', 'CLLE') 
+             AND s2.objtype IN ('*SRVPGM', '*PGM')
+            )
+            OR 
+            (s1.source_type in ('PF', 'LF', 'DSPF', 'PRTF', 
+                              'SQLVIEW', 'SQLTABLE', 'SQLINDEX') 
+             AND s2.objtype = '*FILE'
+            )
+            OR
+            (s1.source_type = 'CMD' 
+             AND s2.objtype = '*CMD'
+            )
+          )
         WHERE s1.table_schema = :p_lib
         AND s1.source_type IN ('RPG', 'RPGLE', 'SQLRPGLE', 'CBL', 'CBLLE', 'CL',
              'CLP', 'CLLE', 'PF', 'LF', 'DSPF', 'PRTF', 'SQLVIEW', 'SQLTABLE',
@@ -80,8 +89,9 @@ dcl-proc main;
         and s1.table_partition <> ''
         and s1.table_name not like 'EVF%'
         and s1.table_name not like 'X%'
-        and s2.objlib not like 'Q%'
-        order by 1, 2;
+        and (s2.objlib is null or s2.objlib not like 'Q%')
+        order by 1, 2
+        optimize for 10 rows;
 
     writeJobLog ('Start' + log_ende);
 
