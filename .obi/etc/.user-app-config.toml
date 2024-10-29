@@ -1,0 +1,7 @@
+[connection]
+ssh-user = "prouzat1"
+
+[general]
+check-remote-source-on-startup = false
+
+[global]

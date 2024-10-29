@@ -1,8 +1,8 @@
 
- ALTER TABLE lager DROP VERSIONING;
+ ALTER TABLE $(SQL_TARGET_LIB).lager DROP VERSIONING;
 
 
-Create or replace table lager (
+Create or replace table $(SQL_TARGET_LIB).lager (
   id           bigint generated always as identity (cycle),
   location     char(10),
   description  varchar(1000),

@@ -1,0 +1,8 @@
+[
+  {
+    "source-lib": "prouzalib",
+    "source-file": "qrpglesrc",
+    "source-member": "date.sqlrpgle.srvpgm",
+    "description": "Date service program"
+  }
+]

@@ -1,6 +1,6 @@
 
 
-Create or replace table test (
+Create or replace table $(SQL_TARGET_LIB).test (
   id        bigint generated always as identity (cycle),
   text      varchar(1000),
   chgtime   timestamp,
