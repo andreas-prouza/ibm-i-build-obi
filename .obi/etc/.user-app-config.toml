@@ -1,0 +1,12 @@
+[connection]
+ssh-user = "prouzat1"
+
+[general]
+check-remote-source-on-startup = false
+
+[global]
+[global.settings]
+[global.settings.general]
+[global.settings.general.TARGET_LIB_MAPPING]
+prouzalib = "prouzat1"
+prouzalib2 = "prouzat2"

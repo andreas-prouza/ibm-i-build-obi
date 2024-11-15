@@ -1,0 +1,4 @@
+[i-releaser]
+url = "http://academy:2005/"
+default-workflow = "b"
+main-branch = "c"

@@ -1,0 +1,11 @@
+# Individual settings for specific sources
+#   - steps
+#   - settings
+
+["prouzalib/qrpglesrc/test4.rpgle.pgm"]
+
+steps=[
+  "global.cmds.chg-src-ccsid",
+  "global.cmds.test-cmd"
+  ]
+settings= { "ACTGRP"= "TESTACT", "TARGET_LIB" = 'PROUZAT1' }
