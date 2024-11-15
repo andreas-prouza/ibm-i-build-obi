@@ -1,6 +1,6 @@
 
 
-Create or replace table logger (
+Create or replace table $(SQL_TARGET_LIB).logger (
   id        bigint generated always as identity (cycle),
   loglevel  char(10),
   text      varchar(1000),

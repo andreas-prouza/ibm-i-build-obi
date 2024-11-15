@@ -1,5 +1,5 @@
 **free
-ctl-opt main(main); // dftactgrp(*no);
+ctl-opt main(main) dftactgrp(*no);
 
 
 // ******************************************************
@@ -7,6 +7,9 @@ ctl-opt main(main); // dftactgrp(*no);
 //
 //  ===> CALL PGM(CPYSRC2IFS) PARM(('MYSRCLIB' (*CHAR 10)) 
 //  ('/home/prouza/src_neu' (*CHAR 100)))
+//
+//  ===> SBMJOB CMD(CALL PGM(PROUZALIB/CPYSRC2IFS) PARM(('MYSRCLIB' (*CHAR 10))
+//   ('/home/prouza/src_neu' (*CHAR 100)))) JOB(CPY2IFS) JOBQ(QS36EVOKE)
 //
 // ******************************************************
 
@@ -33,24 +36,27 @@ dcl-proc main;
         p_root_dir                char(100) const;
     end-pi;
 
-    dcl-s l_lib varchar(10);
-    dcl-s l_file varchar(10);
-    dcl-s l_file_tmp varchar(10);
-    dcl-s l_mbr varchar(10);
-    dcl-s l_ext varchar(10);
-    dcl-s l_objtype varchar(10);
+    dcl-s l_lib                   varchar(10);
+    dcl-s l_lib_tmp               varchar(10);
+    dcl-s l_file                  varchar(10);
+    dcl-s l_file_tmp              varchar(10);
+    dcl-s l_mbr                   varchar(10);
+    dcl-s l_ext                   varchar(10);
+    dcl-s l_objtype               varchar(10);
 
-    dcl-s l_cmd      varchar(500);
-    dcl-s l_root_dir varchar(100);
-    dcl-s l_cur_dir      varchar(100);
+    dcl-s l_cmd                   varchar(500);
+    dcl-s l_root_dir              varchar(1000);
+    dcl-s l_cur_dir               varchar(1000);
+    dcl-s l_stmf                  varchar(1000);
 
     exec sql Declare c_cpy cursor for
-        SELECT distinct lower(:p_lib), lower(s1.table_name), 
-                lower(s1.table_partition),
-                lower(s1.source_type), 
-                lower(replace(coalesce(s2.objtype, 'unknown'), '*', ''))
+        SELECT distinct lower(coalesce(s2.objlib, :p_lib)) obj_lib, 
+                lower(s1.table_name) srcpf, 
+                lower(s1.table_partition) mbr,
+                lower(s1.source_type) source_type, 
+                lower(replace(coalesce(s2.objtype, ''), '*', '')) obj_type
         FROM qsys2.SYSPSTAT s1
-        left join table (qsys2.object_statistics('*LIBL',
+        left join table (qsys2.object_statistics('*USRLIBL',
               case when s1.source_type in ('RPG', 'RPGLE', 'SQLRPGLE', 'CBL', 
                               'CBLLE', 'CL', 'CLP', 'CLLE') then '*SRVPGM *PGM'
                    when s1.source_type in ('PF', 'LF', 'DSPF', 'PRTF', 
@@ -60,13 +66,32 @@ dcl-proc main;
               end,
               s1.table_partition )) s2
           on s2.objname = s1.table_partition
+          AND
+          (
+            (s1.source_type in ('RPG', 'RPGLE', 'SQLRPGLE', 'CBL', 
+                                  'CBLLE', 'CL', 'CLP', 'CLLE') 
+             AND s2.objtype IN ('*SRVPGM', '*PGM')
+            )
+            OR 
+            (s1.source_type in ('PF', 'LF', 'DSPF', 'PRTF', 
+                              'SQLVIEW', 'SQLTABLE', 'SQLINDEX') 
+             AND s2.objtype = '*FILE'
+            )
+            OR
+            (s1.source_type = 'CMD' 
+             AND s2.objtype = '*CMD'
+            )
+          )
         WHERE s1.table_schema = :p_lib
         AND s1.source_type IN ('RPG', 'RPGLE', 'SQLRPGLE', 'CBL', 'CBLLE', 'CL',
              'CLP', 'CLLE', 'PF', 'LF', 'DSPF', 'PRTF', 'SQLVIEW', 'SQLTABLE',
              'SQLINDEX', 'CMD')
         and s1.table_partition <> ''
         and s1.table_name not like 'EVF%'
-        and s1.table_name not like 'X%';
+        and s1.table_name not like 'X%'
+        and (s2.objlib is null or s2.objlib not like 'Q%')
+        order by 1, 2
+        optimize for 10 rows;
 
     writeJobLog ('Start' + log_ende);
 
@@ -75,20 +100,20 @@ dcl-proc main;
     exec sql fetch c_cpy into :l_lib, :l_file, :l_mbr, :l_ext, :l_objtype;
 
     l_root_dir= %trim(p_root_dir) + '/' + 
-                %char(%timestamp(*SYS : 0) : *ISO) + '/' + 
-                %trim(p_lib);
+                %char(%timestamp(*SYS : 0) : *ISO);
 
     // Create directory and all it's parent folders if not exist
     l_cmd = 'QSH cmd(''mkdir -p ' + l_root_dir + ''')';
     writeJobLog (l_cmd + log_ende);
     system(l_cmd);
 
-      dow sqlcode = 0;
+    dow sqlcode = 0;
 
-      if (l_file <> l_file_tmp);
+      if (l_file <> l_file_tmp or l_lib <> l_lib_tmp);
           l_file_tmp = l_file;
-          l_cur_dir = l_root_dir + '/' + l_file;
-          l_cmd = 'mkdir ''' + l_cur_dir + '''';
+          l_lib_tmp = l_lib;
+          l_cur_dir = l_root_dir + '/' + %trim(l_lib) + '/' + %trim(l_file);
+          l_cmd = 'QSH cmd(''mkdir -p ' + l_cur_dir + ''')';
           writeJobLog (l_cmd + log_ende);
           system(l_cmd);
           l_cmd = 'CHGATR OBJ(''' + l_cur_dir + ''') ATR(*CCSID) VALUE(1208)';
@@ -96,11 +121,15 @@ dcl-proc main;
           system(l_cmd);
       ENDIF;
 
+      l_stmf = l_cur_dir + '/' + l_mbr + '.' + l_ext;
+      if l_objtype <> *blank;
+        l_stmf += '.' + l_objtype;
+      endif;
+
       l_cmd = 'CPYTOSTMF FROMMBR(''/QSYS.LIB/' + %trim(p_lib) + '.LIB/' + 
                       l_file + '.FILE/' +
                       l_mbr + '.MBR'') STMFCCSID(1208) +
-                  TOSTMF(''' + l_cur_dir + '/' + l_mbr + '.' + l_ext + '.' + 
-                        l_objtype + ''')';
+                  TOSTMF(''' + l_stmf + ''')';
       clear ErrMsg;
       system (l_cmd);
 
