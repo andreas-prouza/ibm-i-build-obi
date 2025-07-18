@@ -5,11 +5,11 @@ ctl-opt main(main) dftactgrp(*no);
 // ******************************************************
 // Copy all source files from a LIB to IFS
 //
-//  ===> CALL PGM(CPYSRC2IFS) PARM(('MYSRCLIB' (*CHAR 10)) 
-//  ('/home/prouza/src_neu' (*CHAR 100)))
+//  ===> CALL PGM(CPYSRC2IFS) PARM(('MYSRCLIB' (*CHAR 10))
+//  ('/home/prouza/src' (*CHAR 100)))
 //
 //  ===> SBMJOB CMD(CALL PGM(PROUZALIB/CPYSRC2IFS) PARM(('MYSRCLIB' (*CHAR 10))
-//   ('/home/prouza/src_neu' (*CHAR 100)))) JOB(CPY2IFS) JOBQ(QS36EVOKE)
+//   ('/home/prouza/src' (*CHAR 100)))) JOB(CPY2IFS) JOBQ(QS36EVOKE)
 //
 // ******************************************************
 
@@ -49,17 +49,22 @@ dcl-proc main;
     dcl-s l_cur_dir               varchar(1000);
     dcl-s l_stmf                  varchar(1000);
 
+
+    system('addlible prouzalib');
+
     exec sql Declare c_cpy cursor for
-        SELECT distinct lower(coalesce(s2.objlib, :p_lib)) obj_lib, 
-                lower(s1.table_name) srcpf, 
+        SELECT distinct 
+                lower(coalesce(s2.objlib, :p_lib)) obj_lib,
+                lower(s1.table_schema) src_lib,
+                lower(s1.table_name) srcpf,
                 lower(s1.table_partition) mbr,
-                lower(s1.source_type) source_type, 
+                lower(s1.source_type) source_type,
                 lower(replace(coalesce(s2.objtype, ''), '*', '')) obj_type
         FROM qsys2.SYSPSTAT s1
         left join table (qsys2.object_statistics('*USRLIBL',
-              case when s1.source_type in ('RPG', 'RPGLE', 'SQLRPGLE', 'CBL', 
+              case when s1.source_type in ('RPG', 'RPGLE', 'SQLRPGLE', 'CBL',
                               'CBLLE', 'CL', 'CLP', 'CLLE') then '*SRVPGM *PGM'
-                   when s1.source_type in ('PF', 'LF', 'DSPF', 'PRTF', 
+                   when s1.source_type in ('PF', 'LF', 'DSPF', 'PRTF',
                               'SQLVIEW', 'SQLTABLE', 'SQLINDEX') then '*FILE'
                    when s1.source_type in ('CMD') then '*CMD'
                    else '*ALL'
@@ -68,17 +73,17 @@ dcl-proc main;
           on s2.objname = s1.table_partition
           AND
           (
-            (s1.source_type in ('RPG', 'RPGLE', 'SQLRPGLE', 'CBL', 
-                                  'CBLLE', 'CL', 'CLP', 'CLLE') 
+            (s1.source_type in ('RPG', 'RPGLE', 'SQLRPGLE', 'CBL',
+                                  'CBLLE', 'CL', 'CLP', 'CLLE')
              AND s2.objtype IN ('*SRVPGM', '*PGM')
             )
-            OR 
-            (s1.source_type in ('PF', 'LF', 'DSPF', 'PRTF', 
-                              'SQLVIEW', 'SQLTABLE', 'SQLINDEX') 
+            OR
+            (s1.source_type in ('PF', 'LF', 'DSPF', 'PRTF',
+                              'SQLVIEW', 'SQLTABLE', 'SQLINDEX')
              AND s2.objtype = '*FILE'
             )
             OR
-            (s1.source_type = 'CMD' 
+            (s1.source_type = 'CMD'
              AND s2.objtype = '*CMD'
             )
           )
@@ -90,22 +95,26 @@ dcl-proc main;
         and s1.table_name not like 'EVF%'
         and s1.table_name not like 'X%'
         and (s2.objlib is null or s2.objlib not like 'Q%')
-        order by 1, 2
+        and s1.number_rows > 0
+        order by 1, 3
         optimize for 10 rows;
 
     writeJobLog ('Start' + log_ende);
 
 
-    exec sql open c_cpy;
-    exec sql fetch c_cpy into :l_lib, :l_file, :l_mbr, :l_ext, :l_objtype;
 
-    l_root_dir= %trim(p_root_dir) + '/' + 
+    l_root_dir= %trim(p_root_dir) + '/' +
                 %char(%timestamp(*SYS : 0) : *ISO);
 
     // Create directory and all it's parent folders if not exist
     l_cmd = 'QSH cmd(''mkdir -p ' + l_root_dir + ''')';
     writeJobLog (l_cmd + log_ende);
     system(l_cmd);
+
+    l_error_counter = 0;
+    
+    exec sql open c_cpy;
+    exec sql fetch c_cpy into :l_lib, :l_src_lib, :l_file, :l_mbr, :l_ext, :l_objtype;
 
     dow sqlcode = 0;
 
@@ -126,7 +135,7 @@ dcl-proc main;
         l_stmf += '.' + l_objtype;
       endif;
 
-      l_cmd = 'CPYTOSTMF FROMMBR(''/QSYS.LIB/' + %trim(p_lib) + '.LIB/' + 
+      l_cmd = 'CPYTOSTMF FROMMBR(''/QSYS.LIB/' + %trim(l_src_lib) + '.LIB/' +
                       l_file + '.FILE/' +
                       l_mbr + '.MBR'') STMFCCSID(1208) +
                   TOSTMF(''' + l_stmf + ''')';
@@ -136,13 +145,14 @@ dcl-proc main;
       if (ErrMsg <> '');
           writeJobLog ('Error in Command: ' + ErrMsg + log_ende);
           writeJobLog (l_cmd + log_ende);
-          return;
+          l_error_counter += 1;
       ENDIF;
 
-      exec sql fetch c_cpy into :l_lib, :l_file, :l_mbr, :l_ext, :l_objtype;
+      exec sql fetch c_cpy into :l_lib, :l_src_lib, :l_file, :l_mbr, :l_ext, :l_objtype;
     ENDDO;
 
     exec sql close c_cpy;
+    writeJobLog('Number of copy errors: ' + %char(l_error_counter) + log_ende);
 
     return;
 
