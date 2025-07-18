@@ -37,6 +37,7 @@ dcl-proc main;
     end-pi;
 
     dcl-s l_lib                   varchar(10);
+    dcl-s l_src_lib               varchar(10);
     dcl-s l_lib_tmp               varchar(10);
     dcl-s l_file                  varchar(10);
     dcl-s l_file_tmp              varchar(10);
@@ -49,6 +50,7 @@ dcl-proc main;
     dcl-s l_cur_dir               varchar(1000);
     dcl-s l_stmf                  varchar(1000);
 
+    dcl-s l_error_counter         int(10) inz(0);
 
     system('addlible prouzalib');
 
