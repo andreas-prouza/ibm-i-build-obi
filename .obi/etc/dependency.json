@@ -1,16 +1,16 @@
 {
 "prouzalib/qsqlsrc/lager_hist.sqltable.file" : ["prouzalib/qsqlsrc/lager.sqltable.file"],
 "prouzalib/qrpglesrc/cpysrc2ifs.sqlrpgle.pgm" : ["prouzalib/qrpglesrc/errhdlsql.sqlrpgle.srvpgm", "prouzalib/qrpglesrc/date.sqlrpgle.srvpgm"],
-"prouzalib/qrpglesrc/date.sqlrpgle.srvpgm" : ["prouzalib/qrpglesrc/logger.sqlrpgle.srvpgm", "prouzalib/qrpglesrc/errhdlsql.sqlrpgle.srvpgm"],
+"prouzalib/qrpglesrc/date.sqlrpgle.srvpgm" : ["prouzalib/qrpglesrc/logger.sqlrpgle.srvpgm", "prouzalib/qrpglesrc/errhdlsql.sqlrpgle.srvpgm", "prouzalib/.system/prouzadir.bnddir.obj"],
 "prouzalib/qrpglesrc/testlog.rpgle.pgm" : ["prouzalib/qrpglesrc/logger.sqlrpgle.srvpgm"],
-"prouzalib/qrpglesrc/testmod.rpgle.srvpgm" : ["prouzalib/qrpglesrc/logger.sqlrpgle.srvpgm"],
+"prouzalib/qrpglesrc/testmod.rpgle.srvpgm" : ["prouzalib/qrpglesrc/logger.sqlrpgle.srvpgm", "prouzalib/.system/prouzadir.bnddir.obj"],
 
 "prouzalib/qrpglesrc/testlog2.sqlrpgle.pgm" : ["prouzalib/qrpglesrc/testmod.rpgle.srvpgm", "prouzalib/qrpglesrc/logger.sqlrpgle.srvpgm", "prouzalib/qrpglesrc/errhdlsql.sqlrpgle.srvpgm"],
 "prouzalib/qrpglesrc/testsqlerr.sqlrpgle.pgm" : ["prouzalib/qrpglesrc/date.sqlrpgle.srvpgm", "prouzalib/qrpglesrc/logger.sqlrpgle.srvpgm", "prouzalib/qrpglesrc/errhdlsql.sqlrpgle.srvpgm"],
 
 "prouzalib/qrpglesrc/errhdlsqlp.sqlrpgle.pgm" : ["prouzalib/qrpglesrc/logger.sqlrpgle.srvpgm"],
-"prouzalib/qrpglesrc/logger.sqlrpgle.srvpgm" : ["prouzalib/qsqlsrc/logger.sqltable.file"],
-"prouzalib/qrpglesrc/errhdlsql.sqlrpgle.srvpgm" : ["prouzalib/qrpglesrc/logger.sqlrpgle.srvpgm"],
+"prouzalib/qrpglesrc/logger.sqlrpgle.srvpgm" : ["prouzalib/qsqlsrc/logger.sqltable.file", "prouzalib/.system/prouzadir.bnddir.obj"],
+"prouzalib/qrpglesrc/errhdlsql.sqlrpgle.srvpgm" : ["prouzalib/qrpglesrc/logger.sqlrpgle.srvpgm", "prouzalib/.system/prouzadir.bnddir.obj"],
 "prouzalib2/qrpglesrc/test3xxx.rpgle.pgm" : ["prouzalib/qrpglesrc/hallo.rpgle.pgm"],
 "prouzalib/qrpglesrc/test4xxx.rpgle.pgm" : ["prouzalib/qrpglesrc/hallo.rpgle.pgm"]
 }

@@ -1,8 +1,35 @@
-[
-  {
-    "source-lib": "prouzalib",
-    "source-file": "qrpglesrc",
-    "source-member": "date.sqlrpgle.srvpgm",
-    "description": "Date service program"
+{
+  "prouzalib/qcllesrc/testcl.clle.pgm": {
+    "description": "Test CL PGM"
+  },
+  "prouzalib/qddssrc/file1.pf.file": {
+    "description": "Test PF file"
+  },
+  "prouzalib/qrpglesrc/#test2.rpgle.pgm": {
+    "description": ""
+  },
+  "prouzalib/qrpglesrc/#test3.rpgle.pgm": {
+    "description": ""
+  },
+  "prouzalib/qrpglesrc/$test11.rpgle.pgm": {
+    "description": ""
+  },
+  "prouzalib/qrpglesrc/$t§§x#y.rpgle.pgm": {
+    "description": ""
+  },
+  "prouzalib/qrpglesrc/atest.rpgle.pgm": {
+    "description": ""
+  },
+  "prouzalib/qrpglesrc/cpysrc2ifs.sqlrpgle.pgm": {
+    "description": ""
+  },
+  "prouzalib/qrpglesrc/date.sqlrpgle.srvpgm": {
+    "description": ""
+  },
+  "prouzalib/qrpglesrc/errhdlrpg.rpgle.srvpgm": {
+    "description": ""
+  },
+  "prouzalib/qcllesrc/test2.clle.pgm": {
+    "description": "test 4"
   }
-]
+}

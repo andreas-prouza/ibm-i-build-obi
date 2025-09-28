@@ -6,7 +6,7 @@ local-base-dir = "."
 remote-base-dir = "/home/prouzat1/projects/ibm-i-build"
 source-dir = "src"
 check-remote-source-on-startup = false
-local-obi-dir = "/home/andreas/projekte/opensource/obi"
+local-obi-dir = "/home/andreas/projects/obi"
 remote-obi-dir = "/home/prouzat1/obi"
 supported-object-types = [ "pgm", "file", "srvpgm", "obj", "cpy" ]
 file-system-encoding = "utf-8"
@@ -34,10 +34,6 @@ LIBL = [ "$(TARGET_LIB)", "QGPL" ]
 INCLUDE_BNDDIR = "prouzadir"
 INCDIR_RPGLE = "'./src/prouzalib' './src/prouzalib2'"
 INCDIR_SQLRPGLE = "''./src/prouzalib'' ''./src/prouzalib2''"
-
-[global.settings.general.TARGET_LIB_MAPPING]
-prouzalib = "prouzat1"
-prouzalib2 = "prouzat2"
 
 [global.settings.language]
 [global.settings.language."sqlrpgle.srvpgm"]
@@ -82,19 +78,21 @@ pgm = "$(SET_LIBL); cl -v \"CRTPGM PGM(\"'$(TARGET_LIB)/$(OBJ_NAME)'\") ACTGRP($
 "pf.file" = "cl -v \"CRTSRCPF FILE(QTEMP/QSRC) RCDLEN(112)\" 2> /dev/null; cl -v \"CPYFRMSTMF FROMSTMF('\"'$(SOURCE_FILE_NAME)'\"') TOMBR('/QSYS.LIB/QTEMP.LIB/QSRC.FILE/\"'$(OBJ_NAME)'\".MBR') MBROPT(*replace)\"; cl -v \"CRTPF FILE(\"'$(TARGET_LIB)/$(OBJ_NAME)'\") SRCFILE(QTEMP/QSRC)\" 2> /dev/null; cl -v \"CHGPF FILE(\"'$(TARGET_LIB)/$(OBJ_NAME)'\") SRCFILE(QTEMP/QSRC)\" "
 "dspf.file" = "cl -v \"CRTSRCPF FILE(QTEMP/QSRC) RCDLEN(112)\" 2> /dev/null; cl -v \"CPYFRMSTMF FROMSTMF('\"'$(SOURCE_FILE_NAME)'\"') TOMBR('/QSYS.LIB/QTEMP.LIB/QSRC.FILE/\"'$(OBJ_NAME)'\".MBR') MBROPT(*replace)\"; cl -v \"CRTDSPF FILE(\"'$(TARGET_LIB)/$(OBJ_NAME)'\") SRCFILE(QTEMP/QSRC)\" "
 "prtf.file" = "cl -v \"CRTSRCPF FILE(QTEMP/QSRC) RCDLEN(112)\" 2> /dev/null; cl -v \"CPYFRMSTMF FROMSTMF('\"'$(SOURCE_FILE_NAME)'\"') TOMBR('/QSYS.LIB/QTEMP.LIB/QSRC.FILE/\"'$(OBJ_NAME)'\".MBR') MBROPT(*replace)\"; cl -v \"CRTPRTF FILE(\"'$(TARGET_LIB)/$(OBJ_NAME)'\") SRCFILE(QTEMP/QSRC) REPLACE(*YES)\" "
+"bnddir.obj" = "CRTBNDDIR BNDDIR(\"'$(TARGET_LIB)/$(OBJ_NAME)'\")"
 
 [global.steps]
-"sqlrpgle.srvpgm" = [ "global.cmds.chg-src-ccsid", "global.cmds.test_lib", "global.compile-cmds.\"sqlrpgle.mod\"", "global.compile-cmds.bnddir-rmv", "global.compile-cmds.srvpgm-crt", "global.compile-cmds.bnddir-add", "global.cmds.check-error" ]
-"sqlrpgle.pgm" = [ "global.cmds.chg-src-ccsid", "global.compile-cmds.\"sqlrpgle.mod\"", "global.compile-cmds.\"pgm\"", "global.cmds.check-error" ]
-"clle.pgm" = [ "global.cmds.chg-src-ccsid", "global.compile-cmds.\"clle.pgm\"", "global.cmds.check-error" ]
-"clp.pgm" = [ "global.cmds.chg-src-ccsid", "global.compile-cmds.\"clp.pgm\"", "global.cmds.check-error" ]
-"rpg.pgm" = [ "global.cmds.chg-src-ccsid", "global.compile-cmds.\"rpg.pgm\"", "global.cmds.check-error" ]
-"rpgle.pgm" = [ "global.cmds.chg-src-ccsid", "global.compile-cmds.\"rpgle.mod\"", "global.compile-cmds.\"pgm\"", "global.cmds.check-error" ]
-"rpgle.srvpgm" = [ "global.cmds.chg-src-ccsid", "global.compile-cmds.\"rpgle.mod\"", "global.compile-cmds.bnddir-rmv", "global.compile-cmds.srvpgm-crt", "global.compile-cmds.bnddir-add", "global.cmds.check-error" ]
-"sqltable.file" = [ "global.cmds.chg-src-ccsid", "global.cmds.replace-sql-target-lib", "global.compile-cmds.\"sqltable.file\"", "global.cmds.check-error" ]
-"sqlview.file" = [ "global.cmds.chg-src-ccsid", "global.cmds.replace-sql-target-lib", "global.compile-cmds.\"sqlview.file\"", "global.cmds.check-error" ]
-"sqlindex.file" = [ "global.cmds.chg-src-ccsid", "global.cmds.replace-sql-target-lib", "global.compile-cmds.\"sqlindex.file\"", "global.cmds.check-error" ]
-"sqlproc.obj" = [ "global.cmds.chg-src-ccsid", "global.cmds.replace-sql-target-lib", "global.compile-cmds.\"sqlproc.obj\"", "global.cmds.check-error" ]
-"sqlfunc.obj" = [ "global.cmds.chg-src-ccsid", "global.cmds.replace-sql-target-lib", "global.compile-cmds.\"sqlfunc.obj\"", "global.cmds.check-error" ]
-"pf.file" = [ "global.cmds.chg-src-ccsid", "global.compile-cmds.\"pf.file\"", "global.cmds.check-error" ]
-"dspf.file" = [ "global.cmds.chg-src-ccsid", "global.compile-cmds.\"dspf.file\"", "global.cmds.check-error" ]
+"sqlrpgle.srvpgm" = [ "global.cmds.chg-src-ccsid", "global.compile-cmds.\"sqlrpgle.mod\"", "global.compile-cmds.bnddir-rmv", "global.compile-cmds.srvpgm-crt", "global.compile-cmds.bnddir-add" ]
+"sqlrpgle.pgm" = [ "global.cmds.chg-src-ccsid", "global.compile-cmds.\"sqlrpgle.mod\"", "global.compile-cmds.\"pgm\"" ]
+"clle.pgm" = [ "global.cmds.chg-src-ccsid", "global.compile-cmds.\"clle.pgm\"" ]
+"clp.pgm" = [ "global.cmds.chg-src-ccsid", "global.compile-cmds.\"clp.pgm\"" ]
+"rpg.pgm" = [ "global.cmds.chg-src-ccsid", "global.compile-cmds.\"rpg.pgm\"" ]
+"rpgle.pgm" = [ "global.cmds.chg-src-ccsid", "global.compile-cmds.\"rpgle.mod\"", "global.compile-cmds.\"pgm\"" ]
+"rpgle.srvpgm" = [ "global.cmds.chg-src-ccsid", "global.compile-cmds.\"rpgle.mod\"", "global.compile-cmds.bnddir-rmv", "global.compile-cmds.srvpgm-crt", "global.compile-cmds.bnddir-add" ]
+"sqltable.file" = [ "global.cmds.chg-src-ccsid", "global.cmds.replace-sql-target-lib", "global.compile-cmds.\"sqltable.file\"" ]
+"sqlview.file" = [ "global.cmds.chg-src-ccsid", "global.cmds.replace-sql-target-lib", "global.compile-cmds.\"sqlview.file\"" ]
+"sqlindex.file" = [ "global.cmds.chg-src-ccsid", "global.cmds.replace-sql-target-lib", "global.compile-cmds.\"sqlindex.file\"" ]
+"sqlproc.obj" = [ "global.cmds.chg-src-ccsid", "global.cmds.replace-sql-target-lib", "global.compile-cmds.\"sqlproc.obj\"" ]
+"sqlfunc.obj" = [ "global.cmds.chg-src-ccsid", "global.cmds.replace-sql-target-lib", "global.compile-cmds.\"sqlfunc.obj\"" ]
+"pf.file" = [ "global.cmds.chg-src-ccsid", "global.compile-cmds.\"pf.file\"" ]
+"dspf.file" = [ "global.cmds.chg-src-ccsid", "global.compile-cmds.\"dspf.file\"" ]
+"bnddir.obj" = [ "global.compile-cmds.\"bnddir.obj\"" ]
