@@ -3,7 +3,10 @@ ctl-opt main(main) dftactgrp(*no);
 
 
 // ******************************************************
-// Copy all source files from a LIB to IFS
+// Test Commit
+// -------------------------------
+//
+// Copy all source files from a LIB to IFS :)
 //
 //  ===> CALL PGM(CPYSRC2IFS) PARM(('MYSRCLIB' (*CHAR 10))
 //  ('/home/prouza/src' (*CHAR 100)))
