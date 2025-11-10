@@ -4,8 +4,8 @@ ctl-opt main(main) bnddir('PROUZADIR');
 
 exec sql Set Option COMMIT=*none;
 
-/include 'qcpysrc/logger'
-/include 'qcpysrc/errhdlsql'
+/include 'qcpysrc/logger.rpgle.cpy'
+/include 'qcpysrc/errhdlsql.rpgle.cpy'
 
 
 

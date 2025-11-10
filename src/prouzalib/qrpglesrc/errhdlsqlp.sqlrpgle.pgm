@@ -4,7 +4,7 @@ ctl-opt main(main) bnddir('PROUZADIR');
 
 exec sql Set Option COMMIT=*none;
 
-/include 'qcpysrc/logger'
+/include 'qcpysrc/logger.rpgle.cpy'
 
 
 dcl-proc main;

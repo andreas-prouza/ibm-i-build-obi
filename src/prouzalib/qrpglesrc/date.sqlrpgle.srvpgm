@@ -3,10 +3,10 @@ ctl-opt nomain;
 
 exec sql set option commit=*none;
 
-/copy 'qcpysrc/date'
-/copy 'qcpysrc/logger'
+/copy 'qcpysrc/date.rpgle.cpy'
+/copy 'qcpysrc/logger.rpgle.cpy'
 
-/copy 'qcpysrc/errhdlsql'
+/copy 'qcpysrc/errhdlsql.rpgle.cpy'
 
 
 // ***********************************************

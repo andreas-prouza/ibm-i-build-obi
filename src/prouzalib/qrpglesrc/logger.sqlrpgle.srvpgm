@@ -5,8 +5,8 @@ ctl-opt nomain;
 exec sql Set Option COMMIT=*none;
 
 
-/include 'qcpysrc/std'
-/include 'qcpysrc/logger'
+/include 'qcpysrc/std.rpgle.cpy'
+/include 'qcpysrc/logger.rpgle.cpy'
 
 // No 'c_sqlerror' here, because of loop
 // If the logger fails, then the calling program schould not interrupt

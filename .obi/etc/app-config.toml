@@ -56,8 +56,6 @@ chg-src-ccsid = "cl -v \"CHGATR OBJ('\"'$(SOURCE_FILE_NAME)'\"') ATR(*CCSID) VAL
 replace-special-chars-in-file-name = "mv $(subst $$,'$$',$(subst #,#,$?)) $$(echo $(subst $$,'$$',$(subst #,\\#,$?)) | sed -e 's/'$$'\\302''//g'),"
 test-cmd = "echo 'Works as designed'"
 add-lible = "liblist -a $(LIB) 2> /dev/null"
-joblog-separator = "=============(!)JOBLOG(!)===================="
-dspjoblog = "; echo '$(joblog-separator)'; cl -v \"DSPJOBLOG\""
 replace-sql-target-lib = "sed -i 's/$(SQL_TARGET_LIB)/$(TARGET_LIB)/g' $(SOURCE_FILE_NAME)"
 
 [global.compile-cmds]
@@ -78,7 +76,7 @@ pgm = "$(SET_LIBL); cl -v \"CRTPGM PGM(\"'$(TARGET_LIB)/$(OBJ_NAME)'\") ACTGRP($
 "pf.file" = "cl -v \"CRTSRCPF FILE(QTEMP/QSRC) RCDLEN(112)\" 2> /dev/null; cl -v \"CPYFRMSTMF FROMSTMF('\"'$(SOURCE_FILE_NAME)'\"') TOMBR('/QSYS.LIB/QTEMP.LIB/QSRC.FILE/\"'$(OBJ_NAME)'\".MBR') MBROPT(*replace)\"; cl -v \"CRTPF FILE(\"'$(TARGET_LIB)/$(OBJ_NAME)'\") SRCFILE(QTEMP/QSRC)\" 2> /dev/null; cl -v \"CHGPF FILE(\"'$(TARGET_LIB)/$(OBJ_NAME)'\") SRCFILE(QTEMP/QSRC)\" "
 "dspf.file" = "cl -v \"CRTSRCPF FILE(QTEMP/QSRC) RCDLEN(112)\" 2> /dev/null; cl -v \"CPYFRMSTMF FROMSTMF('\"'$(SOURCE_FILE_NAME)'\"') TOMBR('/QSYS.LIB/QTEMP.LIB/QSRC.FILE/\"'$(OBJ_NAME)'\".MBR') MBROPT(*replace)\"; cl -v \"CRTDSPF FILE(\"'$(TARGET_LIB)/$(OBJ_NAME)'\") SRCFILE(QTEMP/QSRC)\" "
 "prtf.file" = "cl -v \"CRTSRCPF FILE(QTEMP/QSRC) RCDLEN(112)\" 2> /dev/null; cl -v \"CPYFRMSTMF FROMSTMF('\"'$(SOURCE_FILE_NAME)'\"') TOMBR('/QSYS.LIB/QTEMP.LIB/QSRC.FILE/\"'$(OBJ_NAME)'\".MBR') MBROPT(*replace)\"; cl -v \"CRTPRTF FILE(\"'$(TARGET_LIB)/$(OBJ_NAME)'\") SRCFILE(QTEMP/QSRC) REPLACE(*YES)\" "
-"bnddir.obj" = "CRTBNDDIR BNDDIR(\"'$(TARGET_LIB)/$(OBJ_NAME)'\")"
+"bnddir.obj" = "cl -v \"CRTBNDDIR BNDDIR(\"'$(TARGET_LIB)/$(OBJ_NAME)'\")\" 2>&1"
 
 [global.steps]
 "sqlrpgle.srvpgm" = [ "global.cmds.chg-src-ccsid", "global.compile-cmds.\"sqlrpgle.mod\"", "global.compile-cmds.bnddir-rmv", "global.compile-cmds.srvpgm-crt", "global.compile-cmds.bnddir-add" ]
@@ -96,3 +94,5 @@ pgm = "$(SET_LIBL); cl -v \"CRTPGM PGM(\"'$(TARGET_LIB)/$(OBJ_NAME)'\") ACTGRP($
 "pf.file" = [ "global.cmds.chg-src-ccsid", "global.compile-cmds.\"pf.file\"" ]
 "dspf.file" = [ "global.cmds.chg-src-ccsid", "global.compile-cmds.\"dspf.file\"" ]
 "bnddir.obj" = [ "global.compile-cmds.\"bnddir.obj\"" ]
+"rpgle.cpy" = [ "global.cmds.chg-src-ccsid" ]
+"sqlrpgle.cpy" = [ "global.cmds.chg-src-ccsid" ]

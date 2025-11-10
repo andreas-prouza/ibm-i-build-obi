@@ -1,6 +1,6 @@
 **free
 
-/include 'qcpysrc/logger'
+/include 'qcpysrc/logger.rpgle.cpy'
 
 logdebug('Great it works!');
 

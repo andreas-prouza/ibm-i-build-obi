@@ -6,8 +6,8 @@ ctl-opt nomain;
 // No commitment control because we never want to ROLLBACK anything in a Logger!
 exec sql Set Option COMMIT=*none;
 
-/include 'qcpysrc/logger'
-/include 'qcpysrc/errhdlsql'
+/include 'qcpysrc/logger.rpgle.cpy'
+/include 'qcpysrc/errhdlsql.rpgle.cpy'
 
 
 

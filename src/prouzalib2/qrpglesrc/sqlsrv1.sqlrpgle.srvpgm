@@ -2,7 +2,7 @@
 
 ctl-opt nomain;
 
-/include 'qcpysrc/sqlsrv1'
+/include 'qcpysrc/sqlsrv1.rpgle.cpy'
 // ******************************************************
 // Test SQL external procedures
 //

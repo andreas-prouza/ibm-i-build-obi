@@ -1,6 +1,6 @@
      H nomain
 
-      /include 'qcpysrc/errhdlrpg'
+      /include 'qcpysrc/errhdlrpg.rpgle.cpy'
 
       //------------------------------------------------------------------------
       // Retrieves last message

@@ -1,7 +1,7 @@
 **free
 
-/include 'qcpysrc/logger'
-/include 'qcpysrc/testmod'
+/include 'qcpysrc/logger.rpgle.cpy'
+/include 'qcpysrc/testmod.rpgle.cpy'
 
 
 
@@ -10,7 +10,7 @@ dcl-s l_count   int(10);
   dcl-ds test_ds            extname('TEST') qualified;
   END-DS;
   
-/copy 'qcpysrc/errhdlsql'
+/copy 'qcpysrc/errhdlsql.rpgle.cpy'
 
   test_ds.text = 'Test';
   test_ds.chgtime = %timestamp();

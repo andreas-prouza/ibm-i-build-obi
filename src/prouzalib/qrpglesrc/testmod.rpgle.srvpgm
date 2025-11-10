@@ -2,8 +2,8 @@
 
 ctl-opt nomain;
  
-/include 'qcpysrc/testmod'
-/include 'qcpysrc/logger'
+/include 'qcpysrc/testmod.rpgle.cpy'
+/include 'qcpysrc/logger.rpgle.cpy'
 
 // Only a dummy procedure for testing
 
