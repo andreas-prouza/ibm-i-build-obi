@@ -1,0 +1,9 @@
+[
+  {
+    "source-file": "*",
+    "source-lib": "*",
+    "source-member": "*logger*",
+    "use-regex": false,
+    "show-empty-folders": true
+  }
+]

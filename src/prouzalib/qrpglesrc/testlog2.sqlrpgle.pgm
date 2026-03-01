@@ -3,19 +3,19 @@
 /include 'qcpysrc/logger.rpgle.cpy'
 /include 'qcpysrc/testmod.rpgle.cpy'
 
+/copy 'qcpysrc/errhdlsql.rpgle.cpy'
 
 
 dcl-s l_count   int(10);
 
-  dcl-ds test_ds            extname('TEST') qualified;
-  END-DS;
-  
-/copy 'qcpysrc/errhdlsql.rpgle.cpy'
+dcl-ds test_ds            extname('TEST') qualified;
+END-DS;
 
-  test_ds.text = 'Test';
-  test_ds.chgtime = %timestamp();
 
-  exec sql insert into test (text, chgtime) values(:test_ds.text, :test_ds.chgtime);
+test_ds.text = 'Test';
+test_ds.chgtime = %timestamp();
+
+exec sql insert into test (text, chgtime) values(:test_ds.text, :test_ds.chgtime);
 
 
 // Just to test a procedure call is possible

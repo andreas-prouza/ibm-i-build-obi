@@ -31,5 +31,20 @@
   },
   "prouzalib/qcllesrc/test2.clle.pgm": {
     "description": "test 4"
+  },
+  "prouzalib/qcpysrc/logger.rpgle.cpy": {
+    "description": "Logger copybook"
+  },
+  "prouzalib/qrpglesrc/logger.sqlrpgle.srvpgm": {
+    "description": "Logger procedures"
+  },
+  "prouzalib/qrpglesrc/testlog.rpgle.pgm": {
+    "description": "Test for logger"
+  },
+  "prouzalib/qrpglesrc/testlog2.sqlrpgle.pgm": {
+    "description": "Test for logger"
+  },
+  "prouzalib/qsqlsrc/logger.sqltable.file": {
+    "description": "Logger table"
   }
 }
