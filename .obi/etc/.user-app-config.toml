@@ -4,6 +4,9 @@ ssh-user = "prouza"
 [general]
 check-remote-source-on-startup = false
 
+[global.cmds]
+[global.steps]
+[global.compile-cmds]
 [global.settings.general]
 USE_ESP = true
-ALWAYS_TRANSFER_RELATED_COPYBOOKS = false
+ALWAYS_TRANSFER_RELATED_COPYBOOKS = true

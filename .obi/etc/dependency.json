@@ -14,8 +14,7 @@
   ],
   "prouzalib/qrpglesrc/testmod.rpgle.srvpgm": [
     "prouzalib/qrpglesrc/logger.sqlrpgle.srvpgm",
-    "prouzalib/.system/prouzadir.bnddir.obj",
-    "prouzalib/qrpglesrc/testmod.rpgle.srvpgm"
+    "prouzalib/.system/prouzadir.bnddir.obj"
   ],
   "prouzalib/qrpglesrc/testlog2.sqlrpgle.pgm": [
     "prouzalib/qrpglesrc/testmod.rpgle.srvpgm",
@@ -43,5 +42,6 @@
   ],
   "prouzalib/qrpglesrc/test4xxx.rpgle.pgm": [
     "prouzalib/qrpglesrc/hallo.rpgle.pgm"
-  ]
+  ],
+  "prouzalib/qcpysrc/logger.rpgle.cpy": []
 }

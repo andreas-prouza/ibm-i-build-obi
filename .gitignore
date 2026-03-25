@@ -3,3 +3,5 @@ log
 build-output
 __pycache__/
 etc/.user.cfg
+.obi/build-history
+.obi/etc/object-builds.json
